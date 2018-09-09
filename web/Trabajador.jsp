@@ -35,7 +35,7 @@
 		<nav class="main_nav justify-self-end text-right">
 			<ul>
 				<li><a href="Index.jsp">Home</a></li>
-				<li class="active"><a href="#">Personas</a></li>
+				<li class="active"><a href="#">Trabajadores</a></li>
 				<li><a href="services.html">Services</a></li>
 				<li><a href="portfolio.html">Portfolio</a></li>
 				<li><a href="blog.html">Blog</a></li>
@@ -159,7 +159,9 @@
                                                         <option value="radiologia">Radiologia</option>
                                                         <option value="vigilante">Vigilante</option>
                                                       </select>
-                                                    <button type="submit" class="btn btn-default">Enviar</button>
+                                                    <br><button type="submit" name="enviar" class="btn btn-default">Enviar</button>
+                                                    
+                                                    <button type="submit" name="modificar" class="btn btn-default">Modificar</button>
                                             </form>
 			</div>
 		</div>
@@ -192,8 +194,7 @@
                         <td><%=trabajador.getNombre() %></td>
                         <td><%=trabajador.getApellido() %></td>
                         <td><%=trabajador.getCargo() %></td>
-                        <td><%=trabajador.getSueldo() %></td>
-                        <td><a href="IniServlet?editar=<%=trabajador.getId()%>">Editar</a></td>
+                        <td><%=trabajador.getSueldo() %></td>                        
                         <td><a href="IniServlet?borrar=<%=trabajador.getId()%>">Borrar</a></td>
                      </tr>
                     <%
