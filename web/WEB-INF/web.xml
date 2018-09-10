@@ -4,9 +4,33 @@
         <servlet-name>IniServlet</servlet-name>
         <servlet-class>Controlador.IniServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>IndexServlet</servlet-name>
+        <servlet-class>Controlador.IndexServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProvedorServet</servlet-name>
+        <servlet-class>Controlador.ProvedorServet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductoServlet</servlet-name>
+        <servlet-class>Controlador.ProductoServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IniServlet</servlet-name>
         <url-pattern>/IniServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>IndexServlet</servlet-name>
+        <url-pattern>/IndexServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProvedorServet</servlet-name>
+        <url-pattern>/ProvedorServet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductoServlet</servlet-name>
+        <url-pattern>/ProductoServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -41,27 +41,20 @@ public class IniServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         RequestDispatcher rq = request.getRequestDispatcher("Trabajador.jsp");
         if (request.getParameter("borrar") != null) {
             String id = request.getParameter("borrar");
             Trabajador trabaja = this.dao.buscarTraba(Integer.parseInt(id));
             this.dao.borrar(trabaja);
-
-            ArrayList<Trabajador> trabajadores = this.dao.listar();
-            RequestDispatcher rq = request.getRequestDispatcher("Trabajador.jsp");
-            request.setAttribute("lista", trabajadores);
-            rq.forward(request, response);
-
-        }
-
-        if (request.getParameter("editar") != null) {
+        }else if (request.getParameter("editar") != null) {
             String id = request.getParameter("editar");
             Trabajador trabajador = this.dao.buscarTraba(Integer.parseInt(id));
-
-            RequestDispatcher rq = request.getRequestDispatcher("Trabajador.jsp");
             request.setAttribute("trabajador", trabajador);
             rq.forward(request, response);
-
         }
+        ArrayList<Trabajador> trabajadores = this.dao.listar();
+        request.setAttribute("lista", trabajadores);
+        rq.forward(request, response);
     }
 
     /**
@@ -94,7 +87,7 @@ public class IniServlet extends HttpServlet {
                 response.sendRedirect("Trabajador.jsp?error=IngreseDatos");
             }
         }
-        if (request.getParameter("modificar") != null) {
+        if (request.getParameter("editar") != null) {
             int id = Integer.parseInt(request.getParameter("cedula"));
             String nombre = request.getParameter("nombre");
             String apellido = request.getParameter("apellido");
@@ -113,6 +106,7 @@ public class IniServlet extends HttpServlet {
                 response.sendRedirect("Trabajador.jsp?error=IngreseDatos");
             }
         }
+        response.sendRedirect("RegistroServlet");
     }
 
     /**
