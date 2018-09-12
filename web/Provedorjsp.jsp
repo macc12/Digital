@@ -1,9 +1,14 @@
+<%-- 
+    Document   : Provedorjsp
+    Created on : 10/09/2018, 05:46:01 PM
+    Author     : ACER
+--%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="Modelo.Trabajador"%>
+<%@page import="Modelo.Provedor"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>DigitalPanoramix - Trabajadores</title>
+        <title>DigitalPanoramix - Provedores</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="RanGO Project">
@@ -35,9 +40,9 @@
                 <nav class="main_nav justify-self-end text-right">
                     <ul>
                         <li><a href="Index.jsp">Inicio</a></li>
-                        <li class="active"><a href="Trabajador.jsp">Trabajadores</a></li>
+                        <li><a href="Trabajador.jsp">Trabajadores</a></li>
                         <li ><a href="Clientejsp.jsp">Clientes</a></li>
-                        <li><a href="Provedoresjsp.jsp">Provedores</a></li>
+                        <li class="active"><a href="Provedoresjsp.jsp">Provedores</a></li>
                         <li><a href="Productojsp.jsp">Prodcutos</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
@@ -137,62 +142,44 @@
                 <div class="container">
                     <div class="row">
                         <%
-                            if (request.getAttribute("trabajador") != null) {
-                                Trabajador trabajador = (Trabajador) request.getAttribute("trabajador");
+                            if (request.getAttribute("provedor") != null) {
+                                Provedor provedor = (Provedor) request.getAttribute("provedor");
 
                         %>
-                        <form action="IniServlet?editar" method="POST">
+                        <form action="ProvedorServet?editar" method="POST">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="cedula" placeholder="cedula" value="<%=trabajador.getId()%>">
+                                <input type="text" class="form-control" id="uid" name="id" placeholder="id" value="<%=provedor.getId()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre" value="<%=trabajador.getNombre()%>">
+                                <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre" value="<%=provedor.getNombre()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="apellido" placeholder="Apellido" value="<%=trabajador.getApellido()%>">
+                                <input type="text" class="form-control" id="pwd" name="telefono" placeholder="telefono" value="<%=provedor.getTelefono()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="salario" placeholder="salario" value="<%=trabajador.getSueldo()%>">
+                                <input type="text" class="form-control" id="pwd" name="direccion" placeholder="direccion" value="<%=provedor.getDireccion()%>">
                             </div>
-                            <select name="cargo">
-                                <option value="secretaria">Secretaria</option>
-                                <option value="odontologo">Odontologo</option>
-                                <option value="auxiliarOdon">Auxiliar Odontologia</option>
-                                <option value="auxiliarCont">Auxiliar Contable</option>
-                                <option value="contador">Contador</option>
-                                <option value="serviciosVar">Servicios Varios</option>
-                                <option value="radiologia">Radiologia</option>
-                                <option value="vigilante">Vigilante</option>
-                            </select>
+                            
                             <br>
 
                             <button type="submit" name="modificar" class="btn btn-default">Modificar</button>
                         </form>
                         <%                        } else {
                         %>  
-                        <form action="IniServlet" method="POST">
+                        <form action="ProvedorServet" method="POST">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="cedula" placeholder="cedula">
+                                <input type="text" class="form-control" id="uid" name="id" placeholder="id">
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="apellido" placeholder="Apellido">
+                                <input type="text" class="form-control" id="pwd" name="telefono" placeholder="telefono">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="salario" placeholder="salario">
+                                <input type="text" class="form-control" id="pwd" name="direccion" placeholder="direccion">
                             </div>
-                            <select name="cargo">
-                                <option value="secretaria">Secretaria</option>
-                                <option value="odontologo">Odontologo</option>
-                                <option value="auxiliarOdon">Auxiliar Odontologia</option>
-                                <option value="auxiliarCont">Auxiliar Contable</option>
-                                <option value="contador">Contador</option>
-                                <option value="serviciosVar">Servicios Varios</option>
-                                <option value="radiologia">Radiologia</option>
-                                <option value="vigilante">Vigilante</option>
-                            </select>
+                            
                             <br><button type="submit" name="enviar" class="btn btn-default">Enviar</button>
                         </form>
                         <%
@@ -211,29 +198,28 @@
                     <table class="table table-striped table-sm">
                         <thead>
                             <tr>
-                                <th>Cedula</th>
+                                <th>id</th>
                                 <th>Nombre</th>
                                 <th>Apellido</th>
-                                <th>Cargo</th>   
-                                <th>Salario</th>
+                                <th>Telefono</th>   
+                                <th>Direccion</th>
                                 <th></th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <%                    if (request.getAttribute("lista") != null) {
-                                    ArrayList trabajadores = (ArrayList<Trabajador>) request.getAttribute("lista");
-                                    for (int i = 0; i < trabajadores.size(); i++) {
-                                        Trabajador trabajador = (Trabajador) trabajadores.get(i);
+                                    ArrayList provedores = (ArrayList<Provedor>) request.getAttribute("lista");
+                                    for (int i = 0; i < provedores.size(); i++) {
+                                        Provedor provedor = (Provedor) provedores.get(i);
                             %>
                             <tr>
-                                <td><%=trabajador.getId()%></td>
-                                <td><%=trabajador.getNombre()%></td>
-                                <td><%=trabajador.getApellido()%></td>
-                                <td><%=trabajador.getCargo()%></td>
-                                <td><%=trabajador.getSueldo()%></td>                        
-                                <td><a href="IniServlet?borrar=<%=trabajador.getId()%>">Borrar</a></td>
-                                <td><a href="IniServlet?editar=<%=trabajador.getId()%>">Editar</a></td>
+                                <td><%=provedor.getId()%></td>
+                                <td><%=provedor.getNombre()%></td>
+                                <td><%=provedor.getTelefono()%></td>
+                                <td><%=provedor.getDireccion()%></td>                      
+                                <td><a href="ProvedorServet?borrar=<%=provedor.getId()%>">Borrar</a></td>
+                                <td><a href="ProvedorServet?editar=<%=provedor.getId()%>">Editar</a></td>
                             </tr>
                             <%
                                     }

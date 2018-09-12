@@ -1,25 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Modelo;
-
-/**
- *
- * @author ACER
- */
 public class Producto{
     private String nombre;
     private int id;
     private double precio;
     private String  estado;
+    private int cantidad;
 
-    public Producto(String nombre, int id, double precio, String estado) {
+    public Producto(String nombre, int id, double precio, String estado, int cantidad) {
         this.nombre = nombre;
         this.id = id;
         this.precio = precio;
         this.estado = estado;
+        this.cantidad = cantidad;
     }
 
     public String getNombre() {
@@ -53,5 +45,15 @@ public class Producto{
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    
     
 }

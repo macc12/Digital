@@ -34,10 +34,10 @@
 		<nav class="main_nav justify-self-end text-right">
 			<ul>
 				<li class="active"><a href="#">Inicio</a></li>
-				<li><a href="Trabajador.jsp">Personas</a></li>
-				<li><a href="services.html">Services</a></li>
-				<li><a href="portfolio.html">Portfolio</a></li>
-				<li><a href="blog.html">Blog</a></li>
+				<li><a href="Trabajador.jsp">Trabajadores</a></li>
+				<li><a href="Clientejps.jsp">Clientes</a></li>
+				<li><a href="Provedorjsp.jsp">Provedores</a></li>
+				<li><a href="Productojsp.jsp">Prodcutos</a></li>
 				<li><a href="contact.html">Contact</a></li>
 			</ul>
 			
@@ -101,11 +101,11 @@
 		<div class="menu menu_mm text-right">
 			<div class="menu_close"><i class="far fa-times-circle trans_200"></i></div>
 			<ul class="menu_mm">
-				<li class="menu_mm active"><a href="#">Home</a></li>
-				<li class="menu_mm"><a href="about.html">About Us</a></li>
-				<li class="menu_mm"><a href="services.html">Services</a></li>
-				<li class="menu_mm"><a href="portfolio.html">Portfolio</a></li>
-				<li class="menu_mm"><a href="blog.html">Blog</a></li>
+				<li class="menu_mm active"><a href="#">Inicio</a></li>
+				<li class="menu_mm"><a href="Trabajador.jsp">Trabajadores</a></li>
+				<li class="menu_mm"><a href="Clientejps.jsp">Clientes</a></li>
+				<li class="menu_mm"><a href="Provedorjsp.jsp">Provedores</a></li>
+				<li class="menu_mm"><a href="Productojsp.jsp">Prodcutos</a></li>
 				<li class="menu_mm"><a href="contact.html">Contact</a></li>
 			</ul>
 		</div>
@@ -126,10 +126,10 @@
 
 				<!-- Slider Item -->
 				<div class="owl-item hero_slider_item item_1 d-flex flex-column align-items-center justify-content-center">
-					<span>by</span>
-					<span><img src="images/colorlib.png" alt=""></span>
-					<span>GO!</span>
-					<span>Get your freebie template now!</span>
+					<span>sea</span>
+					<span>Bienvenido a</span>
+					<span>digital</span>
+					<span> panoramix</span>
 				</div>
 
 				<!-- Slider Item -->

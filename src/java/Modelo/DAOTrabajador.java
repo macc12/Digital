@@ -1,40 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Modelo;
-
+import java.io.IOException;
 import java.util.ArrayList;
-
-/**
- *
- * @author Nicolas
- */
 public class DAOTrabajador {
     private ArrayList<Trabajador> trabajadores; 
-
+    private Arbol arbol;
     public DAOTrabajador() {
         trabajadores = new ArrayList<>();
+        arbol=new Arbol();
     }
     
-    public boolean crearTrabajador(Trabajador trab){
+    public boolean crearTrabajador(Trabajador trab) throws IOException{
         if(buscarTraba(trab.getId())==null){
             trabajadores.add(trab);
+            arbol.agregar("Trabajador", trab.getId(), trab);
             return true;
         }
         return false;
     }
     
-    public ArrayList<Trabajador> listar(){
+    public ArrayList<Trabajador> listar() throws IOException{
+        trabajadores.addAll(arbol.listarTrab());
         return trabajadores;
     }
     
-    public boolean borrar(Trabajador trab){
+    public boolean borrar(Trabajador trab) throws IOException{
+     //   arbol.borrarTrabajador(trab.getId());
         return this.trabajadores.remove(trab);
     }
     
-    public boolean modificar(int id, Trabajador traba){
+    public boolean modificar(int id, Trabajador traba) throws IOException{
         for (int i = 0; i < trabajadores.size(); i++) {
             Trabajador aux = trabajadores.get(i); 
             if(aux.getId()==id){
@@ -43,6 +37,7 @@ public class DAOTrabajador {
                 this.trabajadores.get(i).setId(traba.getId());
                 this.trabajadores.get(i).setCargo(traba.getCargo());
                 this.trabajadores.get(i).setSueldo(traba.getSueldo());
+                arbol.Modificar(traba, traba.getId());
                 return true;
             }                        
         }

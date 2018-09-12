@@ -1,6 +1,6 @@
 package Controlador;
-import Modelo.DAOTrabajador;
-import Modelo.Trabajador;
+import Modelo.Cliente;
+import Modelo.DAOCliente;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
@@ -8,13 +8,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-public class IniServlet extends HttpServlet {
+/**
+ *
+ * @author ACER
+ */
+public class ClienteServlet extends HttpServlet {
 
-    DAOTrabajador dao;
+    DAOCliente dao;
 
     @Override
     public void init() throws ServletException {
-        dao = new DAOTrabajador();
+        dao = new DAOCliente();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -29,19 +33,19 @@ public class IniServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         RequestDispatcher rq = request.getRequestDispatcher("Trabajador.jsp");
+         RequestDispatcher rq = request.getRequestDispatcher("Clientejsp.jsp");
         if (request.getParameter("borrar") != null) {
             String id = request.getParameter("borrar");
-            Trabajador trabaja = this.dao.buscarTraba(Integer.parseInt(id));
-            this.dao.borrar(trabaja);
+            Cliente cliente = this.dao.BuscarCliente(Integer.parseInt(id));
+            this.dao.BorrarCliente(cliente);
         }else if (request.getParameter("editar") != null) {
             String id = request.getParameter("editar");
-            Trabajador trabajador = this.dao.buscarTraba(Integer.parseInt(id));
-            request.setAttribute("trabajador", trabajador);
+            Cliente cliente = this.dao.BuscarCliente(Integer.parseInt(id));
+            request.setAttribute("Cliente", cliente);
             rq.forward(request, response);
         }
-        ArrayList<Trabajador> trabajadores = this.dao.listar();
-        request.setAttribute("lista", trabajadores);
+        ArrayList<Cliente> clientes = this.dao.ListarCliente();
+        request.setAttribute("lista", clientes);
         rq.forward(request, response);
     }
 
@@ -60,41 +64,39 @@ public class IniServlet extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("cedula"));
             String nombre = request.getParameter("nombre");
             String apellido = request.getParameter("apellido");
-            double salario = Double.parseDouble(request.getParameter("salario"));
-            String cargo = request.getParameter("cargo");
-            if (nombre != null && apellido != null && salario != 0 && nombre.length() > 0 && apellido.length() > 0) {
-                Trabajador temp = new Trabajador(nombre, apellido, cargo, salario, id);
-                if (!dao.crearTrabajador(temp)) {
-                    response.sendRedirect("Trabajador.jsp?error=ErrorDatos");
+            String historiaclinica = request.getParameter("historiaclinica");
+            if (nombre != null && apellido != null && historiaclinica.length() > 0 && nombre.length() > 0 && apellido.length() > 0) {
+                Cliente temp = new Cliente(nombre, apellido, id, historiaclinica);
+                if (!dao.CrearCliente(temp)) {
+                    response.sendRedirect("Clientejsp.jsp?error=ErrorDatos");
                 }
-                ArrayList<Trabajador> trabajadores = this.dao.listar();
-                RequestDispatcher rq = request.getRequestDispatcher("Trabajador.jsp");
-                request.setAttribute("lista", trabajadores);
+                ArrayList<Cliente> clientes = this.dao.ListarCliente();
+                RequestDispatcher rq = request.getRequestDispatcher("Clientejsp.jsp");
+                request.setAttribute("lista", clientes);
                 rq.forward(request, response);
             } else {
-                response.sendRedirect("Trabajador.jsp?error=IngreseDatos");
+                response.sendRedirect("Clientejsp.jsp?error=IngreseDatos");
             }
         }
         if (request.getParameter("editar") != null) {
             int id = Integer.parseInt(request.getParameter("cedula"));
             String nombre = request.getParameter("nombre");
             String apellido = request.getParameter("apellido");
-            double salario = Double.parseDouble(request.getParameter("salario"));
-            String cargo = request.getParameter("cargo");
-            if (nombre != null && apellido != null && salario != 0 && nombre.length() > 0 && apellido.length() > 0) {
-                Trabajador temp = new Trabajador(nombre, apellido, cargo, salario, id);
-                if (!dao.modificar(id, temp)) {
-                    response.sendRedirect("Trabajador.jsp?error=ErrorDatos");
+            String historiaclinica = request.getParameter("historiaclinica");
+            if (nombre != null && apellido != null && historiaclinica.length() > 0 && nombre.length() > 0 && apellido.length() > 0) {
+                Cliente temp = new Cliente(nombre, apellido, id, historiaclinica);
+                if (!dao.ModificarCliente(id, temp)) {
+                    response.sendRedirect("Clientejsp.jsp?error=ErrorDatos");
                 }
-                ArrayList<Trabajador> trabajadores = this.dao.listar();
-                RequestDispatcher rq = request.getRequestDispatcher("Trabajador.jsp");
-                request.setAttribute("lista", trabajadores);
+                ArrayList<Cliente> clientes = this.dao.ListarCliente();
+                RequestDispatcher rq = request.getRequestDispatcher("Clientejsp.jsp");
+                request.setAttribute("lista", clientes);
                 rq.forward(request, response);
             } else {
-                response.sendRedirect("Trabajador.jsp?error=IngreseDatos");
+                response.sendRedirect("Clientejsp.jsp?error=IngreseDatos");
             }
         }
-        response.sendRedirect("IniServlet");
+        response.sendRedirect("ClienteServlet");
     }
 
     /**
@@ -106,5 +108,6 @@ public class IniServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 
 }

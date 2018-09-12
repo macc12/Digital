@@ -16,6 +16,10 @@
         <servlet-name>ProductoServlet</servlet-name>
         <servlet-class>Controlador.ProductoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ClienteServlet</servlet-name>
+        <servlet-class>Controlador.ClienteServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IniServlet</servlet-name>
         <url-pattern>/IniServlet</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>ProductoServlet</servlet-name>
         <url-pattern>/ProductoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClienteServlet</servlet-name>
+        <url-pattern>/ClienteServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

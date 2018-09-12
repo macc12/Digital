@@ -1,9 +1,14 @@
+<%-- 
+    Document   : Clientejsp
+    Created on : 10/09/2018, 05:46:01 PM
+    Author     : ACER
+--%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="Modelo.Trabajador"%>
+<%@page import="Modelo.Cliente"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>DigitalPanoramix - Trabajadores</title>
+        <title>DigitalPanoramix - Clientes</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="RanGO Project">
@@ -35,8 +40,8 @@
                 <nav class="main_nav justify-self-end text-right">
                     <ul>
                         <li><a href="Index.jsp">Inicio</a></li>
-                        <li class="active"><a href="Trabajador.jsp">Trabajadores</a></li>
-                        <li ><a href="Clientejsp.jsp">Clientes</a></li>
+                        <li><a href="Trabajador.jsp">Trabajadores</a></li>
+                        <li class="active"><a href="Clientejsp.jsp">Clientes</a></li>
                         <li><a href="Provedoresjsp.jsp">Provedores</a></li>
                         <li><a href="Productojsp.jsp">Prodcutos</a></li>
                         <li><a href="contact.html">Contact</a></li>
@@ -103,10 +108,10 @@
                     <div class="menu_close"><i class="far fa-times-circle trans_200"></i></div>
                     <ul class="menu_mm">
                         <li class="menu_mm"><a href="Index.jsp">Home</a></li>
-                        <li class="menu_mm active"><a href="Personas.jsp">About Us</a></li>
-                        <li class="menu_mm"><a href="services.html">Services</a></li>
-                        <li class="menu_mm"><a href="portfolio.html">Portfolio</a></li>
-                        <li class="menu_mm"><a href="blog.html">Blog</a></li>
+                        <li class="menu_mm"><a href="Trabajador.jsp">Trabajadores</a></li>
+                        <li class="menu_mm active"><a href="Clientejsp.jsp">Clientes</a></li>
+                        <li class="menu_mm"><a href="Provedoresjsp.jsp">Provedores</a></li>
+                        <li class="menu_mm"><a href="Productojsp.jsp">Prodcutos</a></li>
                         <li class="menu_mm"><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
@@ -137,62 +142,43 @@
                 <div class="container">
                     <div class="row">
                         <%
-                            if (request.getAttribute("trabajador") != null) {
-                                Trabajador trabajador = (Trabajador) request.getAttribute("trabajador");
+                            if (request.getAttribute("cliente") != null) {
+                                Cliente cliente = (Cliente) request.getAttribute("cliente");
 
                         %>
-                        <form action="IniServlet?editar" method="POST">
+                        <form action="ClienteServlet?editar" method="POST">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="cedula" placeholder="cedula" value="<%=trabajador.getId()%>">
+                                <input type="text" class="form-control" id="uid" name="cedula" placeholder="cedula" value="<%=cliente.getId()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre" value="<%=trabajador.getNombre()%>">
+                                <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre" value="<%=cliente.getNombre()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="apellido" placeholder="Apellido" value="<%=trabajador.getApellido()%>">
+                                <input type="text" class="form-control" id="pwd" name="apellido" placeholder="Apellido" value="<%=cliente.getApellido()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="salario" placeholder="salario" value="<%=trabajador.getSueldo()%>">
+                                <input type="text" class="form-control" id="pwd" name="historiaclinica" placeholder="historiaclinica" value="<%=cliente.getHistoriaClinica()%>">
                             </div>
-                            <select name="cargo">
-                                <option value="secretaria">Secretaria</option>
-                                <option value="odontologo">Odontologo</option>
-                                <option value="auxiliarOdon">Auxiliar Odontologia</option>
-                                <option value="auxiliarCont">Auxiliar Contable</option>
-                                <option value="contador">Contador</option>
-                                <option value="serviciosVar">Servicios Varios</option>
-                                <option value="radiologia">Radiologia</option>
-                                <option value="vigilante">Vigilante</option>
-                            </select>
+
                             <br>
 
                             <button type="submit" name="modificar" class="btn btn-default">Modificar</button>
                         </form>
                         <%                        } else {
                         %>  
-                        <form action="IniServlet" method="POST">
+                        <form action="ClienteServlet" method="POST">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="cedula" placeholder="cedula">
+                                <input type="text" class="form-control" id="uid" name="cedula" placeholder="cedula" >
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre">
+                                <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre" >
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="pwd" name="apellido" placeholder="Apellido">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="salario" placeholder="salario">
+                                <input type="text" class="form-control" id="pwd" name="historiaclinica" placeholder="historiaclinica">
                             </div>
-                            <select name="cargo">
-                                <option value="secretaria">Secretaria</option>
-                                <option value="odontologo">Odontologo</option>
-                                <option value="auxiliarOdon">Auxiliar Odontologia</option>
-                                <option value="auxiliarCont">Auxiliar Contable</option>
-                                <option value="contador">Contador</option>
-                                <option value="serviciosVar">Servicios Varios</option>
-                                <option value="radiologia">Radiologia</option>
-                                <option value="vigilante">Vigilante</option>
-                            </select>
                             <br><button type="submit" name="enviar" class="btn btn-default">Enviar</button>
                         </form>
                         <%
@@ -214,26 +200,24 @@
                                 <th>Cedula</th>
                                 <th>Nombre</th>
                                 <th>Apellido</th>
-                                <th>Cargo</th>   
-                                <th>Salario</th>
+                                <th>HistoriaClinica</th>   
                                 <th></th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <%                    if (request.getAttribute("lista") != null) {
-                                    ArrayList trabajadores = (ArrayList<Trabajador>) request.getAttribute("lista");
-                                    for (int i = 0; i < trabajadores.size(); i++) {
-                                        Trabajador trabajador = (Trabajador) trabajadores.get(i);
+                            <%     if (request.getAttribute("lista") != null) {
+                                    ArrayList clientes = (ArrayList<Cliente>) request.getAttribute("lista");
+                                    for (int i = 0; i < clientes.size(); i++) {
+                                        Cliente cliente = (Cliente) clientes.get(i);
                             %>
                             <tr>
-                                <td><%=trabajador.getId()%></td>
-                                <td><%=trabajador.getNombre()%></td>
-                                <td><%=trabajador.getApellido()%></td>
-                                <td><%=trabajador.getCargo()%></td>
-                                <td><%=trabajador.getSueldo()%></td>                        
-                                <td><a href="IniServlet?borrar=<%=trabajador.getId()%>">Borrar</a></td>
-                                <td><a href="IniServlet?editar=<%=trabajador.getId()%>">Editar</a></td>
+                                <td><%=cliente.getId()%></td>
+                                <td><%=cliente.getNombre()%></td>
+                                <td><%=cliente.getApellido()%></td>
+                                <td><%=cliente.getHistoriaClinica()%></td>                    
+                                <td><a href="ClienteServlet?borrar=<%=cliente.getId()%>">Borrar</a></td>
+                                <td><a href="ClienteServlet?editar=<%=cliente.getId()%>">Editar</a></td>
                             </tr>
                             <%
                                     }
