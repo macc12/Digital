@@ -5,8 +5,8 @@
  */
 package Controlador;
 
-import Modelo.DAOProvedor;
-import Modelo.Provedor;
+import DAO.DAOProvedor;
+import VO.Provedor;
 
 
 import java.io.IOException;

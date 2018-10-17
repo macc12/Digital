@@ -1,4 +1,5 @@
-package Modelo;
+package DAO;
+import VO.Trabajador;
 import java.io.IOException;
 import java.util.ArrayList;
 public class DAOTrabajador {

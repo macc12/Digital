@@ -1,4 +1,4 @@
-package Modelo;
+package VO;
 public class Producto{
     private String nombre;
     private int id;

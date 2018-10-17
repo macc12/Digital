@@ -1,6 +1,6 @@
 package Controlador;
-import Modelo.DAOTrabajador;
-import Modelo.Trabajador;
+import DAO.DAOTrabajador;
+import VO.Trabajador;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;

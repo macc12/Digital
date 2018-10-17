@@ -1,14 +1,14 @@
 <%-- 
-    Document   : Productojsp
+    Document   : Provedorjsp
     Created on : 10/09/2018, 05:46:01 PM
     Author     : ACER
 --%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="Modelo.Producto"%>
+<%@page import="Modelo.Provedor"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>DigitalPanoramix - Producto</title>
+        <title>DigitalPanoramix - Provedores</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="RanGO Project">
@@ -40,10 +40,10 @@
                 <nav class="main_nav justify-self-end text-right">
                     <ul>
                         <li><a href="Index.jsp">Inicio</a></li>
-                        <li ><a href="Trabajador.jsp">Trabajadores</a></li>
-                        <li ><a href="Clientejsp.jsp">Clientes</a></li>
-                        <li><a href="Provedoresjsp.jsp">Provedores</a></li>
-                        <li class="active"><a href="Productojsp.jsp">Prodcutos</a></li>
+                        <li><a href="Trabajador.jsp">Trabajadores</a></li>
+                        <li ><a href="Cliente.jsp">Clientes</a></li>
+                        <li class="active"><a href="Proveedor.jsp">Proveedores</a></li>
+                        <li><a href="Producto.jsp">Productos</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
 
@@ -142,48 +142,44 @@
                 <div class="container">
                     <div class="row">
                         <%
-                            if (request.getAttribute("producto") != null) {
-                                Producto producto = (Producto) request.getAttribute("producto");
+                            if (request.getAttribute("provedor") != null) {
+                                Provedor provedor = (Provedor) request.getAttribute("provedor");
 
                         %>
-                        <form action="ProductoServlet?editar" method="POST">
+                        <form action="ProvedorServet?editar" method="POST">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="cedula" placeholder="cedula" value="<%=producto.getId()%>">
+                                <input type="text" class="form-control" id="uid" name="id" placeholder="id" value="<%=provedor.getId()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre" value="<%=producto.getNombre()%>">
+                                <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre" value="<%=provedor.getNombre()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="precio" placeholder="precio" value="<%=producto.getPrecio()%>">
+                                <input type="text" class="form-control" id="pwd" name="telefono" placeholder="telefono" value="<%=provedor.getTelefono()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="estado" placeholder="estado" value="<%=producto.getEstado()%>">
+                                <input type="text" class="form-control" id="pwd" name="direccion" placeholder="direccion" value="<%=provedor.getDireccion()%>">
                             </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="cantidad" placeholder="cantidad" value="<%=producto.getCantidad()%>">
-                            </div>
+                            
                             <br>
 
                             <button type="submit" name="modificar" class="btn btn-default">Modificar</button>
                         </form>
                         <%                        } else {
                         %>  
-                        <form action="ProductoServlet" method="POST">
+                        <form action="ProvedorServet" method="POST">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="cedula" placeholder="cedula">
+                                <input type="text" class="form-control" id="uid" name="id" placeholder="id">
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="precio" placeholder="precio">
+                                <input type="text" class="form-control" id="pwd" name="telefono" placeholder="telefono">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="estado" placeholder="estado">
+                                <input type="text" class="form-control" id="pwd" name="direccion" placeholder="direccion">
                             </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="cantidad" placeholder="cantidad">
-                            </div>
+                            
                             <br><button type="submit" name="enviar" class="btn btn-default">Enviar</button>
                         </form>
                         <%
@@ -202,29 +198,28 @@
                     <table class="table table-striped table-sm">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>id</th>
                                 <th>Nombre</th>
-                                <th>precio</th>
-                                <th>Estado</th>   
-                                <th>Cantidad</th>
+                                <th>Apellido</th>
+                                <th>Telefono</th>   
+                                <th>Direccion</th>
                                 <th></th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <%                    if (request.getAttribute("lista") != null) {
-                                    ArrayList productos = (ArrayList<Producto>) request.getAttribute("lista");
-                                    for (int i = 0; i < productos.size(); i++) {
-                                        Producto producto = (Producto) productos.get(i);
+                                    ArrayList provedores = (ArrayList<Provedor>) request.getAttribute("lista");
+                                    for (int i = 0; i < provedores.size(); i++) {
+                                        Provedor provedor = (Provedor) provedores.get(i);
                             %>
                             <tr>
-                                <td><%=producto.getId()%></td>
-                                <td><%=producto.getNombre()%></td>
-                                <td><%=producto.getPrecio()%></td>
-                                <td><%=producto.getEstado()%></td>
-                                <td><%=producto.getCantidad()%></td>                        
-                                <td><a href="ProductoServlet?borrar=<%=producto.getId()%>">Borrar</a></td>
-                                <td><a href="ProductoServlet?editar=<%=producto.getId()%>">Editar</a></td>
+                                <td><%=provedor.getId()%></td>
+                                <td><%=provedor.getNombre()%></td>
+                                <td><%=provedor.getTelefono()%></td>
+                                <td><%=provedor.getDireccion()%></td>                      
+                                <td><a href="ProvedorServet?borrar=<%=provedor.getId()%>">Borrar</a></td>
+                                <td><a href="ProvedorServet?editar=<%=provedor.getId()%>">Editar</a></td>
                             </tr>
                             <%
                                     }

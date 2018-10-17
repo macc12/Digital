@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modelo;
+package DAO;
 
+import VO.Cliente;
+import VO.Provedor;
+import VO.Trabajador;
+import VO.Producto;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

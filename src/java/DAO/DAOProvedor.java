@@ -1,4 +1,5 @@
-package Modelo;
+package DAO;
+import VO.Provedor;
 import java.io.IOException;
 import java.util.ArrayList;
 public class DAOProvedor {

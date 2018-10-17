@@ -1,6 +1,6 @@
 package Controlador;
-import Modelo.Cliente;
-import Modelo.DAOCliente;
+import VO.Cliente;
+import DAO.DAOCliente;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;

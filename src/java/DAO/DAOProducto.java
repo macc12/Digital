@@ -1,5 +1,5 @@
-package Modelo;
-import Modelo.Producto;
+package DAO;
+import VO.Producto;
 import java.io.IOException;
 import java.util.ArrayList;
 public class DAOProducto {

@@ -1,4 +1,4 @@
-package Modelo;
+package VO;
 import java.util.ArrayList;
 public class Provedor {
     private String nombre;

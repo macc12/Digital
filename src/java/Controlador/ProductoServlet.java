@@ -6,8 +6,8 @@
 package Controlador;
 
 
-import Modelo.DAOProducto;
-import Modelo.Producto;
+import DAO.DAOProducto;
+import VO.Producto;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;

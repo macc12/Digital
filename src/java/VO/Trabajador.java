@@ -1,4 +1,4 @@
-package Modelo;
+package VO;
 public class Trabajador {
     private String nombre;
     private String apellido;

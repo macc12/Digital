@@ -41,9 +41,9 @@
                     <ul>
                         <li><a href="Index.jsp">Inicio</a></li>
                         <li><a href="Trabajador.jsp">Trabajadores</a></li>
-                        <li class="active"><a href="Clientejsp.jsp">Clientes</a></li>
-                        <li><a href="Provedoresjsp.jsp">Provedores</a></li>
-                        <li><a href="Productojsp.jsp">Prodcutos</a></li>
+                        <li class="active"><a href="Cliente.jsp">Clientes</a></li>
+                        <li><a href="Proveedor.jsp">Proveedores</a></li>
+                        <li><a href="Producto.jsp">Productos</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
 
