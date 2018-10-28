@@ -10,6 +10,10 @@ public class Cliente {
         this.id = id;
         this.HistoriaClinica = HistoriaClinica;
     }
+
+    public Cliente() {
+    }
+    
     public String getNombre() {
         return nombre;
     }

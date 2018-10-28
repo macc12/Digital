@@ -3,8 +3,8 @@
     Created on : 10/09/2018, 05:46:01 PM
     Author     : ACER
 --%>
+<%@page import="VO.Producto"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="Modelo.Producto"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -148,7 +148,7 @@
                         %>
                         <form action="ProductoServlet?editar" method="POST">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="cedula" placeholder="cedula" value="<%=producto.getId()%>">
+                                <input type="text" class="form-control" id="uid" name="id" placeholder="id" value="<%=producto.getId()%>">
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre" value="<%=producto.getNombre()%>">
@@ -170,7 +170,7 @@
                         %>  
                         <form action="ProductoServlet" method="POST">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="cedula" placeholder="cedula">
+                                <input type="text" class="form-control" id="uid" name="id" placeholder="Id">
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre">

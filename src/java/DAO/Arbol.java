@@ -6,7 +6,7 @@
 package DAO;
 
 import VO.Cliente;
-import VO.Provedor;
+import VO.Proveedor;
 import VO.Trabajador;
 import VO.Producto;
 import java.io.ByteArrayInputStream;
@@ -110,7 +110,7 @@ switch(nombre){
                     addTraba(a.getNombre(),a.getApellido(),a.getId(),a.getCargo(),a.getSueldo(),a.getDiasTraba(),a.getDeuda(),a.getPagado());
                     break;
                  case"Provedor":
-                     Provedor pro=(Provedor)t;
+                     Proveedor pro=(Proveedor)t;
                      addProve(pro.getNombre(),pro.getId(),pro.getTelefono(),pro.getDireccion());
                      break;
                      
@@ -147,7 +147,7 @@ switch(nombre){
                     addTraba(a.getNombre(),a.getApellido(),a.getId(),a.getCargo(),a.getSueldo(),a.getDiasTraba(),a.getDeuda(),a.getPagado());
                     break;
                  case"Provedor":
-                     Provedor pro=(Provedor)t;
+                     Proveedor pro=(Proveedor)t;
                      addProve(pro.getNombre(),pro.getId(),pro.getTelefono(),pro.getDireccion());
                      break;          
             }
@@ -181,10 +181,10 @@ switch(nombre){
                     addTraba(a.getNombre(),a.getApellido(),a.getId(),a.getCargo(),a.getSueldo(),a.getDiasTraba(),a.getDeuda(),a.getPagado());
                     break;
                  case"Provedor":
-                     Provedor pro=(Provedor)t;
+                     Proveedor pro=(Proveedor)t;
                      addProve(pro.getNombre(),pro.getId(),pro.getTelefono(),pro.getDireccion());
                      break;
-//                     
+//                     //                     
             }
         }
     }
@@ -239,16 +239,16 @@ switch(nombre){
     }
      public void borrarProvedor(int id) throws IOException{
          ref = new RandomAccessFile("Provedor", "rw");
-         ArrayList<Provedor> provedores=new ArrayList();
+         ArrayList<Proveedor> provedores=new ArrayList();
         long pos=buscarpos("Provedor", id);
           if(pos!=-1){
         ref.seek(pos);
         ref.skipBytes(21);
         while(ref.getFilePointer()<ref.length()){
-            provedores.add((Provedor)readProv());
+            provedores.add((Proveedor)readProv());
         }
         ref.seek(pos);
-         for (Provedor pro : provedores) {
+         for (Proveedor pro : provedores) {
             addProve(pro.getNombre(),pro.getId(),pro.getTelefono(),pro.getDireccion());  
          }
         ref.setLength(ref.length()-21);
@@ -294,7 +294,7 @@ public Object readTraba()throws IOException{
        return p;
 }
 public Object readProv()throws IOException{
-      Provedor p=new Provedor(ref.readUTF(),ref.readInt(),ref.readInt(),ref.readUTF());
+      Proveedor p=new Proveedor(ref.readUTF(),ref.readInt(),ref.readInt(),ref.readUTF());
        return p;
 }
 public Object readClie()throws IOException{
@@ -315,11 +315,11 @@ public void Modificar(Object o, int val) throws IOException{
        ref.seek(pos);
        Cliente c=(Cliente)o;
        addCli(c.getNombre(),c.getApellido(),c.getId(),c.getHistoriaClinica());
-   }else if(o instanceof Provedor){
+   }else if(o instanceof Proveedor){
        long pos=busquedapos("Provedor",val);
        ref = new RandomAccessFile("Provedor", "rw");
        ref.seek(pos);
-        Provedor pro=(Provedor)o;
+        Proveedor pro=(Proveedor)o;
         addProve(pro.getNombre(),pro.getId(),pro.getTelefono(),pro.getDireccion());
    }else if(o instanceof Producto){
        long pos=busquedapos("Producto",val);
@@ -381,12 +381,12 @@ public void Modificar(Object o, int val) throws IOException{
        }
        return clientes;
    }
-      public ArrayList<Provedor> listarProv() throws IOException{
+      public ArrayList<Proveedor> listarProv() throws IOException{
        ref = new RandomAccessFile("Provedor", "rw");
        ref.seek(0);
-       ArrayList<Provedor> provedores= new ArrayList();
+       ArrayList<Proveedor> provedores= new ArrayList();
        for (int i = 0; i < ref.length(); i+=24) {
-           provedores.add((Provedor)readProv());
+           provedores.add((Proveedor)readProv());
        }
        return provedores;
    }

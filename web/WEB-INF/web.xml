@@ -9,8 +9,8 @@
         <servlet-class>Controlador.IndexServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProvedorServet</servlet-name>
-        <servlet-class>Controlador.ProvedorServet</servlet-class>
+        <servlet-name>ProveedorServlet</servlet-name>
+        <servlet-class>Controlador.ProveedorServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProductoServlet</servlet-name>
@@ -19,6 +19,10 @@
     <servlet>
         <servlet-name>ClienteServlet</servlet-name>
         <servlet-class>Controlador.ClienteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TrabajadorServlet</servlet-name>
+        <servlet-class>Controlador.TrabajadorServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>IniServlet</servlet-name>
@@ -29,8 +33,8 @@
         <url-pattern>/IndexServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProvedorServet</servlet-name>
-        <url-pattern>/ProvedorServet</url-pattern>
+        <servlet-name>ProveedorServlet</servlet-name>
+        <url-pattern>/ProveedorServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProductoServlet</servlet-name>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>ClienteServlet</servlet-name>
         <url-pattern>/ClienteServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TrabajadorServlet</servlet-name>
+        <url-pattern>/TrabajadorServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

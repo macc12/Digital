@@ -1,5 +1,7 @@
 package VO;
+
 public class Trabajador {
+
     private String nombre;
     private String apellido;
     private int id;
@@ -14,19 +16,23 @@ public class Trabajador {
         this.apellido = apellido;
         this.cargo = cargo;
         this.sueldo = sueldo;
-        this.id=id;
-    }  
-public Trabajador(int id,String Nombre,String Apellido,  String cargo, double Sueldo,int Diastraba, double deuda,double pagado){
+        this.id = id;
+    }
+
+    public Trabajador(int id, String Nombre, String Apellido, String cargo, double Sueldo, int Diastraba, double deuda, double pagado) {
         this.nombre = Nombre;
         this.apellido = Apellido;
         this.cargo = cargo;
         this.sueldo = Sueldo;
-        this.diasTraba=Diastraba;
-        this.id=id;
-        this.pagado=pagado;
-        this.deuda=deuda;
-}
-      
+        this.diasTraba = Diastraba;
+        this.id = id;
+        this.pagado = pagado;
+        this.deuda = deuda;
+    }
+
+    public Trabajador() {
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -90,5 +96,5 @@ public Trabajador(int id,String Nombre,String Apellido,  String cargo, double Su
     public void setPagado(double pagado) {
         this.pagado = pagado;
     }
-    
+
 }

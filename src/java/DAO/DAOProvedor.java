@@ -1,15 +1,15 @@
 package DAO;
-import VO.Provedor;
+import VO.Proveedor;
 import java.io.IOException;
 import java.util.ArrayList;
 public class DAOProvedor {
-private ArrayList<Provedor> provedores; 
+private ArrayList<Proveedor> provedores; 
    private Arbol arbol;
     public DAOProvedor() {
         provedores = new ArrayList<>();
          arbol=new Arbol();
     } 
-    public boolean CrearProveedor(Provedor prov) throws IOException{
+    public boolean CrearProveedor(Proveedor prov) throws IOException{
         if(BuscarProveedor(prov.getId())==null){
             provedores.add(prov);
             arbol.agregar("Provedor", prov.getId(), prov);
@@ -17,17 +17,17 @@ private ArrayList<Provedor> provedores;
         }
         return false;
     }    
-    public ArrayList<Provedor> ListarProveedor() throws IOException{
+    public ArrayList<Proveedor> ListarProveedor() throws IOException{
         provedores.addAll(arbol.listarProv());
         return provedores;
     } 
-    public boolean BorrarProveedor(Provedor trab) throws IOException{
+    public boolean BorrarProveedor(Proveedor trab) throws IOException{
       //  arbol.borrarProvedor(trab.getId());
         return this.provedores.remove(trab);
     }
-    public boolean ModificarProveedor(int id, Provedor traba) throws IOException{
+    public boolean ModificarProveedor(int id, Proveedor traba) throws IOException{
         for (int i = 0; i < provedores.size(); i++) {
-            Provedor aux = provedores.get(i); 
+            Proveedor aux = provedores.get(i); 
             if(aux.getId()==id){
                 this.provedores.get(i).setNombre(traba.getNombre());
                 this.provedores.get(i).setId(traba.getId());
@@ -37,7 +37,7 @@ private ArrayList<Provedor> provedores;
         }
         return false;
     }
-    public Provedor BuscarProveedor(int id){
+    public Proveedor BuscarProveedor(int id){
         for (int i = 0; i < provedores.size(); i++) {            
             if(provedores.get(i).getId()==id){
                 return provedores.get(i);

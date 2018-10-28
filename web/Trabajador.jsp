@@ -1,5 +1,6 @@
+<%@page import="VO.Trabajador"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="Modelo.Trabajador"%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -141,9 +142,9 @@
                                 Trabajador trabajador = (Trabajador) request.getAttribute("trabajador");
 
                         %>
-                        <form action="IniServlet?editar" method="POST">
+                        <form action="TrabajadorServlet?editar" method="POST">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="cedula" placeholder="cedula" value="<%=trabajador.getId()%>">
+                                <input type="text" class="form-control" id="uid" name="id" placeholder="id" value="<%=trabajador.getId()%>">
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre" value="<%=trabajador.getNombre()%>">
@@ -165,14 +166,22 @@
                                 <option value="vigilante">Vigilante</option>
                             </select>
                             <br>
-
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="pwd" name="DiasTrabajados" placeholder=DiasTrabajados value="<%=trabajador.getDiasTraba()%>">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="pwd" name="Deuda" placeholder="Deuda" value="<%=trabajador.getDeuda()%>">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="pwd" name="Pagado" placeholder="Pagado" value="<%=trabajador.getPagado()%>">
+                            </div>
                             <button type="submit" name="modificar" class="btn btn-default">Modificar</button>
                         </form>
                         <%                        } else {
                         %>  
-                        <form action="IniServlet" method="POST">
+                        <form action="TrabajadorServlet" method="POST">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="cedula" placeholder="cedula">
+                                <input type="text" class="form-control" id="uid" name="id" placeholder="id">
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre">
@@ -193,7 +202,17 @@
                                 <option value="radiologia">Radiologia</option>
                                 <option value="vigilante">Vigilante</option>
                             </select>
-                            <br><button type="submit" name="enviar" class="btn btn-default">Enviar</button>
+                            <br>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="pwd" name="DiasTrabajados" placeholder=DiasTrabajados">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="pwd" name="Deuda" placeholder="Deuda">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="pwd" name="Pagado" placeholder="Pagado">
+                            </div>
+                            <button type="submit" name="enviar" class="btn btn-default">Enviar</button>
                         </form>
                         <%
                             }
@@ -216,6 +235,9 @@
                                 <th>Apellido</th>
                                 <th>Cargo</th>   
                                 <th>Salario</th>
+                                <th>Dias Trabajados</th>
+                                <th>Deuda</th>
+                                <th>Pagado</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -231,9 +253,12 @@
                                 <td><%=trabajador.getNombre()%></td>
                                 <td><%=trabajador.getApellido()%></td>
                                 <td><%=trabajador.getCargo()%></td>
-                                <td><%=trabajador.getSueldo()%></td>                        
-                                <td><a href="IniServlet?borrar=<%=trabajador.getId()%>">Borrar</a></td>
-                                <td><a href="IniServlet?editar=<%=trabajador.getId()%>">Editar</a></td>
+                                <td><%=trabajador.getSueldo()%></td>  
+                                <td><%=trabajador.getDiasTraba()%> </td>
+                                <td><%=trabajador.getDeuda()%> </td>
+                                <td><%=trabajador.getPagado()%> </td>
+                                <td><a href="TrabajadorServlet?borrar=<%=trabajador.getId()%>">Borrar</a></td>
+                                <td><a href="TrabajadorServlet?editar=<%=trabajador.getId()%>">Editar</a></td>
                             </tr>
                             <%
                                     }

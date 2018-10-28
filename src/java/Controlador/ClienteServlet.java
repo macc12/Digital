@@ -1,24 +1,31 @@
 package Controlador;
+
 import VO.Cliente;
 import DAO.DAOCliente;
+import DAO_SQL.ClienteDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  *
  * @author ACER
  */
 public class ClienteServlet extends HttpServlet {
 
-    DAOCliente dao;
+    //DAOCliente dao;
+    ClienteDAO dao;
 
     @Override
     public void init() throws ServletException {
-        dao = new DAOCliente();
+        dao = new ClienteDAO();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -33,20 +40,32 @@ public class ClienteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         RequestDispatcher rq = request.getRequestDispatcher("Clientejsp.jsp");
-        if (request.getParameter("borrar") != null) {
-            String id = request.getParameter("borrar");
-            Cliente cliente = this.dao.BuscarCliente(Integer.parseInt(id));
-            this.dao.BorrarCliente(cliente);
-        }else if (request.getParameter("editar") != null) {
-            String id = request.getParameter("editar");
-            Cliente cliente = this.dao.BuscarCliente(Integer.parseInt(id));
-            request.setAttribute("Cliente", cliente);
+        try {
+            RequestDispatcher rq = request.getRequestDispatcher("Cliente.jsp");
+            if (request.getParameter("borrar") != null) {
+
+                String id = request.getParameter("borrar");
+                //Cliente cliente = this.dao.BuscarCliente(Integer.parseInt(id));
+                Cliente cliente = this.dao.buscar(Integer.parseInt(id));
+                this.dao.borrar(cliente);
+
+            } else if (request.getParameter("editar") != null) {
+
+                String id = request.getParameter("editar");
+                Cliente cliente = this.dao.buscar(Integer.parseInt(id));
+                request.setAttribute("cliente", cliente);
+                rq.forward(request, response);
+
+            }
+            ArrayList<Cliente> clientes;
+
+            clientes = (ArrayList<Cliente>) this.dao.listar();
+
+            request.setAttribute("lista", clientes);
             rq.forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ArrayList<Cliente> clientes = this.dao.ListarCliente();
-        request.setAttribute("lista", clientes);
-        rq.forward(request, response);
     }
 
     /**
@@ -60,43 +79,53 @@ public class ClienteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getParameter("enviar") != null) {
-            int id = Integer.parseInt(request.getParameter("cedula"));
-            String nombre = request.getParameter("nombre");
-            String apellido = request.getParameter("apellido");
-            String historiaclinica = request.getParameter("historiaclinica");
-            if (nombre != null && apellido != null && historiaclinica.length() > 0 && nombre.length() > 0 && apellido.length() > 0) {
-                Cliente temp = new Cliente(nombre, apellido, id, historiaclinica);
-                if (!dao.CrearCliente(temp)) {
-                    response.sendRedirect("Clientejsp.jsp?error=ErrorDatos");
+        
+            if (request.getParameter("enviar") != null) {
+                int id = Integer.parseInt(request.getParameter("cedula"));
+                String nombre = request.getParameter("nombre");
+                String apellido = request.getParameter("apellido");
+                String historiaclinica = request.getParameter("historiaclinica");
+                if (nombre != null && apellido != null && historiaclinica.length() > 0 && nombre.length() > 0 && apellido.length() > 0) {
+                    try {
+                        Cliente temp = new Cliente(nombre, apellido, id, historiaclinica);
+                        if (!dao.crear(temp)) {
+                            response.sendRedirect("Cliente.jsp?error=ErrorDatos");
+                        }
+                        ArrayList<Cliente> clientes = (ArrayList<Cliente>) this.dao.listar();
+                        RequestDispatcher rq = request.getRequestDispatcher("Cliente.jsp");
+                        request.setAttribute("lista", clientes);
+                        rq.forward(request, response);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    response.sendRedirect("Cliente.jsp?error=IngreseDatos");
                 }
-                ArrayList<Cliente> clientes = this.dao.ListarCliente();
-                RequestDispatcher rq = request.getRequestDispatcher("Clientejsp.jsp");
-                request.setAttribute("lista", clientes);
-                rq.forward(request, response);
-            } else {
-                response.sendRedirect("Clientejsp.jsp?error=IngreseDatos");
             }
-        }
-        if (request.getParameter("editar") != null) {
-            int id = Integer.parseInt(request.getParameter("cedula"));
-            String nombre = request.getParameter("nombre");
-            String apellido = request.getParameter("apellido");
-            String historiaclinica = request.getParameter("historiaclinica");
-            if (nombre != null && apellido != null && historiaclinica.length() > 0 && nombre.length() > 0 && apellido.length() > 0) {
-                Cliente temp = new Cliente(nombre, apellido, id, historiaclinica);
-                if (!dao.ModificarCliente(id, temp)) {
-                    response.sendRedirect("Clientejsp.jsp?error=ErrorDatos");
+            if (request.getParameter("editar") != null) {
+                int id = Integer.parseInt(request.getParameter("cedula"));
+                String nombre = request.getParameter("nombre");
+                String apellido = request.getParameter("apellido");
+                String historiaclinica = request.getParameter("historiaclinica");
+                if (nombre != null && apellido != null && historiaclinica.length() > 0 && nombre.length() > 0 && apellido.length() > 0) {
+                    try {
+                        Cliente temp = new Cliente(nombre, apellido, id, historiaclinica);
+                        if (!dao.modificar(id, temp)) {
+                            response.sendRedirect("Cliente.jsp?error=ErrorDatos");
+                        }
+                        ArrayList<Cliente> clientes = (ArrayList<Cliente>) this.dao.listar();
+                        RequestDispatcher rq = request.getRequestDispatcher("Cliente.jsp");
+                        request.setAttribute("lista", clientes);
+                        rq.forward(request, response);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    response.sendRedirect("Cliente.jsp?error=IngreseDatos");
                 }
-                ArrayList<Cliente> clientes = this.dao.ListarCliente();
-                RequestDispatcher rq = request.getRequestDispatcher("Clientejsp.jsp");
-                request.setAttribute("lista", clientes);
-                rq.forward(request, response);
-            } else {
-                response.sendRedirect("Clientejsp.jsp?error=IngreseDatos");
             }
-        }
-        response.sendRedirect("ClienteServlet");
+            response.sendRedirect("ClienteServlet");
+        
     }
 
     /**
@@ -108,6 +137,5 @@ public class ClienteServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 
 }

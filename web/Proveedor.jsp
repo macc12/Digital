@@ -3,12 +3,13 @@
     Created on : 10/09/2018, 05:46:01 PM
     Author     : ACER
 --%>
+<%@page import="VO.Proveedor"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="Modelo.Provedor"%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>DigitalPanoramix - Provedores</title>
+        <title>DigitalPanoramix - Proveedores</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="RanGO Project">
@@ -142,22 +143,22 @@
                 <div class="container">
                     <div class="row">
                         <%
-                            if (request.getAttribute("provedor") != null) {
-                                Provedor provedor = (Provedor) request.getAttribute("provedor");
+                            if (request.getAttribute("proveedor") != null) {
+                                Proveedor proveedor = (Proveedor) request.getAttribute("proveedor");
 
                         %>
-                        <form action="ProvedorServet?editar" method="POST">
+                        <form action="ProveedorServlet?editar" method="POST">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="id" placeholder="id" value="<%=provedor.getId()%>">
+                                <input type="text" class="form-control" id="uid" name="id" placeholder="id" value="<%=proveedor.getId()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre" value="<%=provedor.getNombre()%>">
+                                <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre" value="<%=proveedor.getNombre()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="telefono" placeholder="telefono" value="<%=provedor.getTelefono()%>">
+                                <input type="text" class="form-control" id="pwd" name="telefono" placeholder="telefono" value="<%=proveedor.getTelefono()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="direccion" placeholder="direccion" value="<%=provedor.getDireccion()%>">
+                                <input type="text" class="form-control" id="pwd" name="direccion" placeholder="direccion" value="<%=proveedor.getDireccion()%>">
                             </div>
                             
                             <br>
@@ -166,7 +167,7 @@
                         </form>
                         <%                        } else {
                         %>  
-                        <form action="ProvedorServet" method="POST">
+                        <form action="ProveedorServlet" method="POST">
                             <div class="form-group">
                                 <input type="text" class="form-control" id="uid" name="id" placeholder="id">
                             </div>
@@ -199,8 +200,7 @@
                         <thead>
                             <tr>
                                 <th>id</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
+                                <th>Nombre</th>                                
                                 <th>Telefono</th>   
                                 <th>Direccion</th>
                                 <th></th>
@@ -209,17 +209,17 @@
                         </thead>
                         <tbody>
                             <%                    if (request.getAttribute("lista") != null) {
-                                    ArrayList provedores = (ArrayList<Provedor>) request.getAttribute("lista");
-                                    for (int i = 0; i < provedores.size(); i++) {
-                                        Provedor provedor = (Provedor) provedores.get(i);
+                                    ArrayList proveedores = (ArrayList<Proveedor>) request.getAttribute("lista");
+                                    for (int i = 0; i < proveedores.size(); i++) {
+                                        Proveedor proveedor = (Proveedor) proveedores.get(i);
                             %>
                             <tr>
-                                <td><%=provedor.getId()%></td>
-                                <td><%=provedor.getNombre()%></td>
-                                <td><%=provedor.getTelefono()%></td>
-                                <td><%=provedor.getDireccion()%></td>                      
-                                <td><a href="ProvedorServet?borrar=<%=provedor.getId()%>">Borrar</a></td>
-                                <td><a href="ProvedorServet?editar=<%=provedor.getId()%>">Editar</a></td>
+                                <td><%=proveedor.getId()%></td>
+                                <td><%=proveedor.getNombre()%></td>
+                                <td><%=proveedor.getTelefono()%></td>
+                                <td><%=proveedor.getDireccion()%></td>                      
+                                <td><a href="ProveedorServlet?borrar=<%=proveedor.getId()%>">Borrar</a></td>
+                                <td><a href="ProveedorServlet?editar=<%=proveedor.getId()%>">Editar</a></td>
                             </tr>
                             <%
                                     }

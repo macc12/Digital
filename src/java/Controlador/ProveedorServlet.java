@@ -5,11 +5,12 @@
  */
 package Controlador;
 
+import DAO.DAOProvedor;
+import DAO_SQL.ProveedorDAO;
+import VO.Proveedor;
 
-import DAO.DAOProducto;
-import DAO_SQL.ProductoDAO;
-import VO.Producto;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -24,15 +25,14 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ACER
  */
-public class ProductoServlet extends HttpServlet {
+public class ProveedorServlet extends HttpServlet {
 
-   
-    //DAOProducto dao;
-    ProductoDAO dao;
+    //DAOProvedor dao;
+    ProveedorDAO dao;
 
     @Override
     public void init() throws ServletException {
-        dao = new ProductoDAO();
+        dao = new ProveedorDAO();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -48,22 +48,26 @@ public class ProductoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            RequestDispatcher rq = request.getRequestDispatcher("Producto.jsp");
+            RequestDispatcher rq = request.getRequestDispatcher("Proveedor.jsp");
             if (request.getParameter("borrar") != null) {
+
                 String id = request.getParameter("borrar");
-                Producto producto = this.dao.buscar(Integer.parseInt(id));
-                this.dao.borrar(producto);
-            }else if (request.getParameter("editar") != null) {
+                Proveedor proveedor = this.dao.buscar(Integer.parseInt(id));
+                this.dao.borrar(proveedor);
+
+            } else if (request.getParameter("editar") != null) {
+
                 String id = request.getParameter("editar");
-                Producto producto = this.dao.buscar(Integer.parseInt(id));
-                request.setAttribute("producto", producto);
+                Proveedor proveedor = this.dao.buscar(Integer.parseInt(id));
+                request.setAttribute("proveedor", proveedor);
                 rq.forward(request, response);
+
             }
-            ArrayList<Producto> productos = (ArrayList<Producto>) this.dao.listar();
-            request.setAttribute("lista", productos);
+            ArrayList<Proveedor> proveedores = (ArrayList<Proveedor>) this.dao.listar();
+            request.setAttribute("lista", proveedores);
             rq.forward(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(ProductoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProveedorServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -81,50 +85,48 @@ public class ProductoServlet extends HttpServlet {
         if (request.getParameter("enviar") != null) {
             int id = Integer.parseInt(request.getParameter("id"));
             String nombre = request.getParameter("nombre");
-            String estado = request.getParameter("estado");
-            int cantidad = Integer.parseInt(request.getParameter("cantidad"));
-            double precio = Double.parseDouble(request.getParameter("precio")); 
-            if (nombre != null && precio > 0 && cantidad > 0&& nombre.length() > 0  && estado.length() > 0) {
+            String direccion = request.getParameter("direccion");
+            int telefono = Integer.parseInt(request.getParameter("telefono"));
+            if (nombre != null && telefono != 0 && nombre.length() > 0 && direccion.length() > 0 /*&& productos !=null*/) {
                 try {
-                    Producto temp = new Producto(nombre, id, precio, estado, cantidad);
+                    Proveedor temp = new Proveedor(nombre, id, telefono, direccion, new ArrayList<>());
                     if (!dao.crear(temp)) {
-                        response.sendRedirect("Producto.jsp?error=ErrorDatos");
+                        response.sendRedirect("Proveedor.jsp?error=ErrorDatos");
                     }
-                    ArrayList<Producto> productos = (ArrayList<Producto>) this.dao.listar();
-                    RequestDispatcher rq = request.getRequestDispatcher("Producto.jsp");
-                    request.setAttribute("lista", productos);
+                    ArrayList<Proveedor> provedores = (ArrayList<Proveedor>) this.dao.listar();
+                    RequestDispatcher rq = request.getRequestDispatcher("Proveedor.jsp");
+                    request.setAttribute("lista", provedores);
                     rq.forward(request, response);
                 } catch (SQLException ex) {
-                    Logger.getLogger(ProductoServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ProveedorServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                response.sendRedirect("Producto.jsp?error=IngreseDatos");
+                response.sendRedirect("Proveedor.jsp?error=IngreseDatos");
             }
         }
         if (request.getParameter("editar") != null) {
             int id = Integer.parseInt(request.getParameter("id"));
             String nombre = request.getParameter("nombre");
-            String estado = request.getParameter("estado");
-            int cantidad = Integer.parseInt(request.getParameter("cantidad"));
-            double precio = Double.parseDouble(request.getParameter("precio")); 
-            if (nombre != null && precio > 0 && cantidad > 0&& nombre.length() > 0  && estado.length() > 0) {
+            String direccion = request.getParameter("direccion");
+            int telefono = Integer.parseInt(request.getParameter("telefono"));
+            if (nombre != null && telefono != 0 && nombre.length() > 0 && direccion.length() > 0 /*&& productos !=null*/) {
                 try {
-                    Producto temp = new Producto(nombre, id, precio, estado, cantidad);
+                    Proveedor temp = new Proveedor(nombre, id, telefono, direccion, new ArrayList<>());
                     if (!dao.modificar(id, temp)) {
-                        response.sendRedirect("Producto.jsp?error=ErrorDatos");
+                        response.sendRedirect("Proveedor.jsp?error=ErrorDatos");
                     }
-                    ArrayList<Producto> prodcutos = (ArrayList<Producto>) this.dao.listar();
-                    RequestDispatcher rq = request.getRequestDispatcher("Producto.jsp");
-                    request.setAttribute("lista", prodcutos);
+                    ArrayList<Proveedor> proveedores = (ArrayList<Proveedor>) this.dao.listar();
+                    RequestDispatcher rq = request.getRequestDispatcher("Proveedor.jsp");
+                    request.setAttribute("lista", proveedores);
                     rq.forward(request, response);
                 } catch (SQLException ex) {
-                    Logger.getLogger(ProductoServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ProveedorServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                response.sendRedirect("Producto.jsp?error=IngreseDatos");
+                response.sendRedirect("Proveedor.jsp?error=IngreseDatos");
             }
         }
-        response.sendRedirect("Productoservlet");
+        response.sendRedirect("ProveedorServlet");
     }
 
     /**
