@@ -42,9 +42,9 @@
                         <li><a href="Index.jsp">Inicio</a></li>
                         <li ><a href="Trabajador.jsp">Trabajadores</a></li>
                         <li ><a href="Cliente.jsp">Clientes</a></li>
-                        <li><a href="Proveedor.jsp">Provedores</a></li>
-                        <li class="active"><a href="Producto.jsp">Prodcutos</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="Proveedor.jsp">Proveedores</a></li>
+                        <li class="active"><a href="Producto.jsp">Productos</a></li>
+                        <li><a href="LogIn.jsp">Salir</a></li>
                     </ul>
 
                     <!-- Search -->

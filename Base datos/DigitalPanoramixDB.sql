@@ -40,10 +40,11 @@ create table Trabajador(
   Pagado double not null
 );
 
--- prueba 
-create table Persona(
-	cedula integer(10) PRIMARY KEY,
-	nombre varchar(20),
-	apellido varchar(20) 
+create table usuario(
+	nombreUser     varchar(20) not null primary key,
+	contrase       varchar(20) not null,
+	tipouser       varchar(20) not null
 );
+
+insert into usuario values('maria','maria','Administrador');
 
