@@ -35,10 +35,11 @@ public class NominaServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    DAONomina dao;
+    //DAONomina dao;
+    TrabajadorDAO dao;
 
     public void init() throws ServletException {
-        dao = new DAONomina();
+        dao = new TrabajadorDAO();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -54,8 +55,8 @@ public class NominaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            RequestDispatcher rq = request.getRequestDispatcher("Trabajador.jsp");
-           
+            
+            RequestDispatcher rq = request.getRequestDispatcher("Nomina.jsp");
             ArrayList<Trabajador> trabajadors;
 
             trabajadors = (ArrayList<Trabajador>) this.dao.listar();
@@ -78,8 +79,15 @@ public class NominaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        response.sendRedirect("TrabajadorServlet");
+        try {
+            ArrayList<Trabajador> trabajadors;
+            trabajadors = (ArrayList<Trabajador>) this.dao.listar();
+            
+            request.setAttribute("lista", trabajadors);
+            response.sendRedirect("TrabajadorServlet");
+        } catch (SQLException ex) {
+            Logger.getLogger(NominaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

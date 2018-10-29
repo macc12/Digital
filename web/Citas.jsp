@@ -164,7 +164,7 @@
                                 <input type="text" class="form-control" id="pwd" name="Estado" placeholder="Estado" value="<%=cita.getEstado()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="Dia" placeholder="Dia" value="<%=envia.getDia()%>">
+                                <input type="text" class="form-control" id="pwd" name="Dia" placeholder="Dia" value="<%=cita.getDia()%>">
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="pwd" name="hora" placeholder="hora" value="<%=cita.getHora()%>">

@@ -37,7 +37,7 @@
                     <ul>
                         <li><a href="Index.jsp">Inicio</a></li>
                         <li><a href="Trabajador.jsp">Trabajadores</a></li>
-                         <li class="active"><a href="Nomina.jsp">Trabajadores</a></li>
+                         <li class="active"><a href="Nomina.jsp">Nomina</a></li>
                         <li ><a href="Cliente.jsp">Clientes</a></li>
                         <li><a href="Proveedor.jsp">Proveedores</a></li>
                         <li><a href="Producto.jsp">Productos</a></li>
@@ -137,6 +137,7 @@
 
             <div class="v_slider_section">
                 <div class="container fill_height">
+                   
                     <table class="table table-striped table-sm">
                         <thead>
                             <tr>
@@ -182,8 +183,9 @@
 
                         </tbody>
                     </table>
+                    
                      <div >
-                        <input type="text" class="form-control" id="pwd" name="Total a pagar"  value="<%=total%>" readonly="readonly" >
+                         <h3>Total a pagar</h3><input type="text" class="form-control" id="pwd"  value="<%=total%>" readonly="readonly" >
                      </div>
                 </div>
             </div>
