@@ -36,7 +36,8 @@
                 <nav class="main_nav justify-self-end text-right">
                     <ul>
                         <li><a href="Index.jsp">Inicio</a></li>
-                        <li class="active"><a href="Trabajador.jsp">Trabajadores</a></li>
+                        <li><a href="Trabajador.jsp">Trabajadores</a></li>
+                         <li class="active"><a href="Nomina.jsp">Trabajadores</a></li>
                         <li ><a href="Cliente.jsp">Clientes</a></li>
                         <li><a href="Proveedor.jsp">Proveedores</a></li>
                         <li><a href="Producto.jsp">Productos</a></li>
@@ -104,7 +105,8 @@
                     <div class="menu_close"><i class="far fa-times-circle trans_200"></i></div>
                     <ul class="menu_mm">
                         <li class="menu_mm"><a href="Index.jsp">Home</a></li>
-                        <li class="menu_mm active"><a href="Personas.jsp">About Us</a></li>
+                        <li class="menu_mm"><a href="Personas.jsp">About Us</a></li>
+                        <li class="menu_mm active"><a href="Nomina.jsp">Nomina</a></li>
                         <li class="menu_mm"><a href="services.html">Services</a></li>
                         <li class="menu_mm"><a href="portfolio.html">Portfolio</a></li>
                         <li class="menu_mm"><a href="blog.html">Blog</a></li>
@@ -181,7 +183,7 @@
                         </tbody>
                     </table>
                      <div >
-                                <input type="text" class="form-control" id="pwd" name="Total a pagar"  value="<%=total%>">
+                        <input type="text" class="form-control" id="pwd" name="Total a pagar"  value="<%=total%>" readonly="readonly" >
                      </div>
                 </div>
             </div>
