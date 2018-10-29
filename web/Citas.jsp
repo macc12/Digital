@@ -4,7 +4,7 @@
     Author     : jhanu
 --%>
 
-<%@page import="VO.Cliente"%>
+<%@page import="VO.Citas"%>
 <%@page import="java.util.ArrayList"%>
 
 <!DOCTYPE html>
@@ -43,10 +43,10 @@
                     <ul>
                         <li><a href="Index.jsp">Inicio</a></li>
                         <li><a href="Trabajador.jsp">Trabajadores</a></li>
-                        <li class="active"><a href="Cliente.jsp">Clientes</a></li>
+                        <li><a href="Cliente.jsp">Clientes</a></li>
                         <li><a href="Proveedor.jsp">Proveedores</a></li>
                         <li><a href="Producto.jsp">Productos</a></li>
-                        <li><a href="Citas.jsp">citas</a></li>
+                        <li class="active"><a href="Citas.jsp">citas</a></li>
                         <li><a href="LogIn.jsp">Salir</a></li>
                     </ul>
 
@@ -146,22 +146,31 @@
                 <div class="container">
                     <div class="row">
                         <%
-                            if (request.getAttribute("cliente") != null) {
-                                Cliente cliente = (Cliente) request.getAttribute("cliente");
+                            if (request.getAttribute("citas") != null) {
+                                Citas cita = (Citas) request.getAttribute("citas");
 
                         %>
-                        <form action="ClienteServlet?editar" method="POST">
+                        <form action="CitasServlet?editar" method="POST">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="cedula" placeholder="cedula" value="<%=cliente.getId()%>">
+                                <input type="text" class="form-control" id="uid" name="IdCita" placeholder="IdCita" value="<%=cita.getIdCita()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre" value="<%=cliente.getNombre()%>">
+                                <input type="text" class="form-control" id="uid" name="IdCliente" placeholder="IdCliente" value="<%=cita.getIdCliente()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="apellido" placeholder="Apellido" value="<%=cliente.getApellido()%>">
+                                <input type="text" class="form-control" id="pwd" name="IdTrabajador " placeholder="IdTrabajador" value="<%=cita.getIdTrabajador()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="historiaclinica" placeholder="historiaclinica" value="<%=cliente.getHistoriaClinica()%>">
+                                <input type="text" class="form-control" id="pwd" name="Estado" placeholder="Estado" value="<%=cita.getEstado()%>">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="pwd" name="Dia" placeholder="Dia" value="<%=envia.getDia()%>">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="pwd" name="hora" placeholder="hora" value="<%=cita.getHora()%>">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="pwd" name="Descripcion" placeholder="Descripcion" value="<%=cita.getDescripcion()%>">
                             </div>
 
                             <br>
@@ -170,18 +179,27 @@
                         </form>
                         <%                        } else {
                         %>  
-                        <form action="ClienteServlet" method="POST">
+                        <form action="CitasServlet" method="POST">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="cedula" placeholder="cedula" >
+                                <input type="text" class="form-control" id="uid" name="IdCita" placeholder="IdCita" >
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre" >
+                                <input type="text" class="form-control" id="uid" name="IdCliente" placeholder="IdCliente" >
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="apellido" placeholder="Apellido">
+                                <input type="text" class="form-control" id="pwd" name="IdTrabajador " placeholder="IdTrabajador" >
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="historiaclinica" placeholder="historiaclinica">
+                                <input type="text" class="form-control" id="pwd" name="Estado" placeholder="Estado" >
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="pwd" name="Dia" placeholder="Dia" >
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="pwd" name="hora" placeholder="hora" >
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="pwd" name="Descripcion" placeholder="Descripcion" >
                             </div>
                             <br><button type="submit" name="enviar" class="btn btn-default">Enviar</button>
                         </form>
@@ -201,27 +219,33 @@
                     <table class="table table-striped table-sm">
                         <thead>
                             <tr>
-                                <th>Cedula</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>HistoriaClinica</th>   
-                                <th></th>
-                                <th></th>
+                                <th>IdCita</th>
+                                <th>IdCliente</th>
+                                <th>IdTrabajador</th>
+                                <th>Estado</th>   
+                                <th>Dia</th>
+                                <th>hora</th>
+                                <th>Descripcion</th>
                             </tr>
                         </thead>
                         <tbody>
                             <%     if (request.getAttribute("lista") != null) {
-                                    ArrayList clientes = (ArrayList<Cliente>) request.getAttribute("lista");
-                                    for (int i = 0; i < clientes.size(); i++) {
-                                        Cliente cliente = (Cliente) clientes.get(i);
+                                    ArrayList citas = (ArrayList<Citas>) request.getAttribute("lista");
+                                    for (int i = 0; i < citas.size(); i++) {
+                                        Citas cita = (Citas) citas.get(i);
                             %>
                             <tr>
-                                <td><%=cliente.getId()%></td>
-                                <td><%=cliente.getNombre()%></td>
-                                <td><%=cliente.getApellido()%></td>
-                                <td><%=cliente.getHistoriaClinica()%></td>                    
-                                <td><a href="ClienteServlet?borrar=<%=cliente.getId()%>">Borrar</a></td>
-                                <td><a href="ClienteServlet?editar=<%=cliente.getId()%>">Editar</a></td>
+                                <td><%=cita.getIdCita()%></td>
+                                <td><%=cita.getIdCliente()%></td>
+                                <td><%=cita.getIdTrabajador()%></td>
+                                <td><%=cita.getEstado()%></td>  
+                                <td><%=cita.getDia()%></td> 
+                                <td><%=cita.getHora()%></td> 
+                                <td><%=cita.getDescripcion()%></td>
+                                <td></td> 
+                                <td></td> 
+                                <td><a href="CitasServlet?borrar=<%=cita.getIdCita()%>">Borrar</a></td>
+                                <td><a href="CitasServlet?editar=<%=cita.getIdCita()%>">Editar</a></td>
                             </tr>
                             <%
                                     }

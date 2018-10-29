@@ -28,13 +28,13 @@ public class CitasDAO  {
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
-            String IdCita= null;
+            String IdCita= "";
             int IdCliente =0;
             int IdTrabajador=0;
-            String Estado= null;
-            String Dia= null;
-            String hora= null;
-            String Descripcion= null;
+            String Estado= "";
+            String Dia= "";
+            String hora= "";
+            String Descripcion= "";
             while (rs.next()) {
                 if (citas == null) {
                     citas = new ArrayList<>();
@@ -128,13 +128,13 @@ public class CitasDAO  {
             preparedStmt = connection.prepareStatement(query);
             preparedStmt.setString(1, ct);
             ResultSet rs = preparedStmt.executeQuery();
-            String IdCita= null;
+            String IdCita= "";
             int IdCliente =0;
             int IdTrabajador=0;
-            String Estado= null;
-            String Dia= null;
-            String hora= null;
-            String Descripcion= null;
+            String Estado= "";
+            String Dia= "";
+            String hora= "";
+            String Descripcion= "";
             if (rs.next()) {
                 temp = new Citas();
 
