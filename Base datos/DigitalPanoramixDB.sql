@@ -48,3 +48,16 @@ create table usuario(
 
 insert into usuario values('maria','maria','Administrador');
 
+create table citas(
+	IdCita  varchar(20) not null primary key,
+	IdCliente int not null,
+	IdTrabajador int not null,
+	Estado varchar(20) not null,
+	Dia  varchar(20) not null,
+	hora varchar(20) not null,
+	Descripcion varchar(20) not null,
+	INDEX (IdCliente),
+	INDEX (IdTrabajador),
+   FOREIGN KEY (IdCliente) REFERENCES 	Cliente (IdCliente),
+   FOREIGN KEY (IdTrabajador) REFERENCES Trabajador (IdTrabajador)
+);

@@ -28,6 +28,10 @@
         <servlet-name>UsuarioServlet</servlet-name>
         <servlet-class>Controlador.UsuarioServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CitasServlet</servlet-name>
+        <servlet-class>Controlador.CitasServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IniServlet</servlet-name>
         <url-pattern>/IniServlet</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>UsuarioServlet</servlet-name>
         <url-pattern>/UsuarioServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CitasServlet</servlet-name>
+        <url-pattern>/CitasServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
