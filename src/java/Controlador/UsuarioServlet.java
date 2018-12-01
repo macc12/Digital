@@ -43,10 +43,11 @@ public class UsuarioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher rq = request.getRequestDispatcher("ContUsuario.jsp");
+        RequestDispatcher rq = request.getRequestDispatcher("ContUsuarios.jsp");
         try {
             if(request.getParameter("borrar") != null){
                 String cl = request.getParameter("borrar");
+                System.out.println(cl);
                 Usuario temp = this.dao.buscarCl(cl);
                 dao.borrar(temp);
             } else if (request.getParameter("editar") != null) {
@@ -105,21 +106,22 @@ public class UsuarioServlet extends HttpServlet {
             String usuario = request.getParameter("usuario");
             String pass = request.getParameter("password");
             String passr = request.getParameter("passwordr");
+            String tipo = request.getParameter("tipoUser");
             if (usuario.length() > 0 && usuario != null && pass.length() > 0 && pass != null && pass.compareTo(passr) == 0) {
                 try {
-                    Usuario temp = new Usuario(usuario, pass);
+                    Usuario temp = new Usuario(passr, passr, tipo);
                     if (!dao.crear(temp)) {
-                        response.sendRedirect("ContUsuario.jsp?error=ErrorDatos");
+                        response.sendRedirect("ContUsuarios.jsp?error=ErrorDatos");
                     }
                     ArrayList<Usuario> usuarios = (ArrayList<Usuario>) this.dao.listar();
-                    RequestDispatcher rq = request.getRequestDispatcher("ContUsuario.jsp");
+                    RequestDispatcher rq = request.getRequestDispatcher("ContUsuarios.jsp");
                     request.setAttribute("lista", usuarios);
                     rq.forward(request, response);
                 } catch (SQLException ex) {
                     Logger.getLogger(UsuarioServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                response.sendRedirect("ContUsuario.jsp?errorendatos");
+                response.sendRedirect("ContUsuarios.jsp?errorendatos");
             }
         }
 
@@ -127,23 +129,25 @@ public class UsuarioServlet extends HttpServlet {
             String usuario = request.getParameter("usuario");
             String pass = request.getParameter("password");
             String passr = request.getParameter("passwordr");
+            String tipo = request.getParameter("tipoUser");
             if (usuario.length() > 0 && usuario != null && pass.length() > 0 && pass != null && pass.compareTo(passr) == 0) {
                 try {
-                    Usuario temp = new Usuario(usuario, pass);
+                    Usuario temp = new Usuario(passr, passr, tipo);
                     if (!dao.modificarU(usuario, temp)) {
-                        response.sendRedirect("ContUsuario.jsp?error=ErrorDatos");
+                        response.sendRedirect("ContUsuarios.jsp?error=ErrorDatos");
                     }
                     ArrayList<Usuario> usuarios = (ArrayList<Usuario>) this.dao.listar();
-                    RequestDispatcher rq = request.getRequestDispatcher("ContUsuario.jsp");
+                    RequestDispatcher rq = request.getRequestDispatcher("ContUsuarios.jsp");
                     request.setAttribute("lista", usuarios);
                     rq.forward(request, response);
                 } catch (SQLException ex) {
                     Logger.getLogger(UsuarioServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                response.sendRedirect("ContUsuario.jsp?errorendatos");
+                response.sendRedirect("ContUsuarios.jsp?errorendatos");
             }
-        }
+        }   
+        response.sendRedirect("UsuarioServlet");
     }
 
     /**

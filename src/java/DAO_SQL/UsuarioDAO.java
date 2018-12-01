@@ -56,11 +56,11 @@ public class UsuarioDAO implements IBaseDatos<Usuario> {
     public Usuario buscarCl(String name) throws SQLException {
         Usuario temp = null;
         PreparedStatement preparedStmt = null;
-        String query = "SELECT * FROM usuario where nombreUser = name";
+        String query = "SELECT * FROM usuario where nombreUser = ?";
         Connection connection = Conexion.getConnection();
         try {
             preparedStmt = connection.prepareStatement(query);            
-            
+            preparedStmt.setString(1, name);
             ResultSet rs = preparedStmt.executeQuery();
             String usera = null;
             String password = null;
@@ -194,12 +194,13 @@ public class UsuarioDAO implements IBaseDatos<Usuario> {
     public boolean modificarU(String cl, Usuario t) throws SQLException {
         int result = 0;
         Connection connection = Conexion.getConnection();
-        String query = "update usuario set contrase = ?, tipouser = ? where nombreUser = cl";
+        String query = "update usuario set contrase = ?, tipouser = ? where nombreUser = ?";
         PreparedStatement preparedStmt = null;
         try {
             preparedStmt = connection.prepareStatement(query);
             preparedStmt.setString(1, t.getPassword());
             preparedStmt.setString(2, t.getTipo());
+            preparedStmt.setString(3, cl);
 
             result = preparedStmt.executeUpdate();
         } catch (Exception e) {
