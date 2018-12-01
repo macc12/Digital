@@ -61,3 +61,9 @@ create table citas(
    FOREIGN KEY (IdCliente) REFERENCES 	Cliente (IdCliente),
    FOREIGN KEY (IdTrabajador) REFERENCES Trabajador (IdTrabajador)
 );
+
+create table quejas(
+	correo           varchar(50),
+	texto            varchar(100)
+);
+

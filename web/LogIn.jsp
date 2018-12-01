@@ -29,7 +29,9 @@
                                                         <nav class="main_nav justify-self-end text-right">
                                                             <ul>                                                                
                                                                 <li><a href="Inicio.jsp">Inicio</a></li>
-                                                                <li class="active"><a href="#">Acceder</a></li>
+                                                                <li><a href="Quejas.jsp">Quejas, Sugerencias o Reclamos</a></li>
+                                                                <li class="active"><a href="#">Acceder</a></li>                                                                
+                                                                
                                                             </ul>
 
                                                             <!-- Search -->

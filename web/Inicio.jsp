@@ -34,7 +34,8 @@
 		<nav class="main_nav justify-self-end text-right">
 			<ul>
 				<li class="active"><a href="#">Inicio</a></li>
-				<li><a href="LogIn.jsp">Acceder</a></li>				
+                                <li><a href="Quejas.jsp">Quejas, Sugerencias o Reclamos</a></li>
+				<li><a href="LogIn.jsp">Acceder</a></li>                                
 			</ul>
 			
 			<!-- Search -->
@@ -154,11 +155,6 @@
 	
 
 </div>
-<form action="" method="POST">
-    <div>
-            <input type="text" class="form-control" id="pwd" name="queja" placeholder="Queja">
-        </div>
-</form>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="styles/bootstrap4/popper.js"></script>
 <script src="styles/bootstrap4/bootstrap.min.js"></script>
