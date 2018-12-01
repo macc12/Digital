@@ -53,7 +53,7 @@ public class QuejasServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getParameter("enviar") != null) {
+        if (request.getParameter("enviarQ") != null) {
             try {
                 String correo = request.getParameter("correo");
                 String texto = request.getParameter("queja");
@@ -68,8 +68,8 @@ public class QuejasServlet extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        response.sendRedirect("QuejasServlet");
+        }        
+        response.sendRedirect("Quejas.jsp");
 
     }
 

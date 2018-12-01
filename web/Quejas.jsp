@@ -139,7 +139,7 @@
                 <!-- Newsletter -->
 
 
-                <form action="" method="POST">
+                <form action="QuejasServlet" method="POST">
                     <div style="position:absolute; top:200px; left:10;">
                         <h1>Quejas, Sugerencias o Reclamos:</h1> 
                         <t2>Correo</t2><input type="text" class="form-control" id="pwd" name="correo" placeholder="Correo">   
@@ -147,7 +147,7 @@
                         
                         <t2>¿Qué desea?</t2><input type="text" class="form-control" id="pwd" name="queja" placeholder="">  
                         <br>
-                        <button type="submit" name="enviar" class="btn btn-default">Enviar</button>
+                        <button type="submit" name="enviarQ" class="btn btn-default">Enviar</button>
                     </div>
                 </form>
 

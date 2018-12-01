@@ -20,7 +20,7 @@ public class Conexion {
 			   }
 
 			  try {
-			    CONEXION = DriverManager.getConnection("jdbc:mysql://localhost:3306/DigitalPanoramix","root", "");
+			    CONEXION = DriverManager.getConnection("jdbc:mysql://localhost:3306/DigitalPanoramix","root", "root");
                               System.out.println("conexion establecida");
      			  } catch (SQLException e) {
 			     throw new SQLException(e);
