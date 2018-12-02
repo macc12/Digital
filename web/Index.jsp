@@ -1,3 +1,12 @@
+<%@page import="VO.Usuario"%>
+<%
+    HttpSession sesion = request.getSession();
+    Usuario usuario = (Usuario)sesion.getAttribute("usuario");
+    if( usuario == null){
+      response.sendRedirect("LogIn.jsp");
+    }else{ 
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +47,7 @@
 				<li><a href="Cliente.jsp">Clientes</a></li>
 				<li><a href="Proveedor.jsp">Proveedores</a></li>
 				<li><a href="Producto.jsp">Productos</a></li>
-				<li><a href="contact.html">Contact</a></li>
+				<li><a href="LogIn.jsp">Salir</a></li>
 			</ul>
 			
 			<!-- Search -->
@@ -826,3 +835,4 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </body>
 
 </html>
+<%}%>

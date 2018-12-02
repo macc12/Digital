@@ -5,7 +5,14 @@
 --%>
 <%@page import="VO.Cliente"%>
 <%@page import="java.util.ArrayList"%>
-
+<%@page import="VO.Usuario"%>
+<%
+    HttpSession sesion = request.getSession();
+    Usuario usuario = (Usuario)sesion.getAttribute("usuario");
+    if( usuario == null){
+      response.sendRedirect("LogIn.jsp");
+    }else{ 
+%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -397,3 +404,4 @@
     </body>
 
 </html>
+<%}%>

@@ -18,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -45,7 +46,7 @@ public class UsuarioServlet extends HttpServlet {
             throws ServletException, IOException {
         RequestDispatcher rq = request.getRequestDispatcher("ContUsuarios.jsp");
         try {
-            if(request.getParameter("borrar") != null){
+            if (request.getParameter("borrar") != null) {
                 String cl = request.getParameter("borrar");
                 System.out.println(cl);
                 Usuario temp = this.dao.buscarCl(cl);
@@ -53,13 +54,13 @@ public class UsuarioServlet extends HttpServlet {
             } else if (request.getParameter("editar") != null) {
                 String id = request.getParameter("editar");
                 Usuario temp = this.dao.buscarCl(id);
-                request.setAttribute("usuario",temp);
+                request.setAttribute("usuario", temp);
                 rq.forward(request, response);
             }
             ArrayList<Usuario> usuarios;
             usuarios = (ArrayList<Usuario>) this.dao.listar();
             request.setAttribute("lista", usuarios);
-                    rq.forward(request, response);
+            rq.forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -85,7 +86,31 @@ public class UsuarioServlet extends HttpServlet {
                     Usuario temp = dao.buscarU(us);
                     if (temp != null) {
                         if (temp.getTipo().compareTo("Administrador") == 0) {
-                            response.sendRedirect("Index.jsp");
+                            HttpSession sesionUsuario = request.getSession();
+                            Usuario _sesionUsuario = (Usuario) sesionUsuario.getAttribute("usuario");
+                            if (_sesionUsuario == null) {
+                                //El usuario no a creado la sesion
+                                if (temp != null) {
+                                    System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                                    sesionUsuario.setAttribute("usuario", temp);
+                                    System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaap");
+                                    sesionUsuario.setMaxInactiveInterval(10);
+                                    System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaz");
+                                    response.sendRedirect("Index.jsp");
+                                    System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaae");
+                                } else {
+                                    response.sendRedirect("LogIn.jsp");
+                                }
+                            } else {
+                                response.sendRedirect("Index.jsp");
+                            }
+                            if (temp != null) {
+
+                            } else {
+                                request.setAttribute("Error", "Revisar usuario/ pass");
+                                RequestDispatcher rq = request.getRequestDispatcher("LogIn.jsp");
+                                rq.forward(request, response);
+                            }
                         }
                         if (temp.getTipo().compareTo("AuxContable") == 0) {
                             response.sendRedirect("IAuxCont.jsp");
@@ -146,8 +171,8 @@ public class UsuarioServlet extends HttpServlet {
             } else {
                 response.sendRedirect("ContUsuarios.jsp?errorendatos");
             }
-        }   
-        response.sendRedirect("UsuarioServlet");
+        }
+        //response.sendRedirect("UsuarioServlet");
     }
 
     /**
