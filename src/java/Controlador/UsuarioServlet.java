@@ -44,8 +44,18 @@ public class UsuarioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher rq = request.getRequestDispatcher("ContUsuarios.jsp");
+        
         try {
+            RequestDispatcher rqa = request.getRequestDispatcher("Index.jsp");
+            if (request.getParameter("cerrarses") != null) {
+                HttpSession sesionUsuario = request.getSession();
+                Usuario _sesionUsuario = (Usuario) sesionUsuario.getAttribute("usuario");
+                if (_sesionUsuario != null) {
+                    sesionUsuario.invalidate();                   
+                    response.sendRedirect("LogIn.jsp");
+                }
+            }
+            RequestDispatcher rq = request.getRequestDispatcher("ContUsuarios.jsp");
             if (request.getParameter("borrar") != null) {
                 String cl = request.getParameter("borrar");
                 System.out.println(cl);
@@ -91,13 +101,9 @@ public class UsuarioServlet extends HttpServlet {
                             if (_sesionUsuario == null) {
                                 //El usuario no a creado la sesion
                                 if (temp != null) {
-                                    System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                                     sesionUsuario.setAttribute("usuario", temp);
-                                    System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaap");
                                     sesionUsuario.setMaxInactiveInterval(10);
-                                    System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaz");
-                                    response.sendRedirect("Index.jsp");
-                                    System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaae");
+                                    response.sendRedirect("Index.jsp");                                    
                                 } else {
                                     response.sendRedirect("LogIn.jsp");
                                 }
