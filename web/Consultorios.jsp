@@ -1,3 +1,4 @@
+<%@page import="VO.Consultorio"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="VO.Usuario"%>
 <html lang="en">
@@ -35,8 +36,8 @@
                         <li ><a href="Cliente.jsp">Clientes</a></li>
                         <li><a href="Proveedor.jsp">Proveedores</a></li>
                         <li><a href="Producto.jsp">Productos</a></li>
-                        <li  class="active"><a href="ContUsuarios.jsp">Usuarios</a></li>
-                        <li><a href="Consultorios.jsp">Consultorios</a></li>
+                        <li><a href="ContUsuarios.jsp">Usuarios</a></li>
+                        <li class="active"><a href="Consultorios.jsp">Consultorios</a></li>
                         <li><a href="LogIn.jsp">Salir</a></li>
                     </ul>
 
@@ -132,50 +133,32 @@
             <!-- Contact -->
             <div>
                 <%
-                    if (request.getAttribute("usuario") != null) {
-                        Usuario user = (Usuario) request.getAttribute("usuario");
+                    if (request.getAttribute("consultorio") != null) {
+                        Consultorio consul = (Consultorio) request.getAttribute("consultorio");
 
                 %>  
-                <form action="UsuarioServlet" method="POST">
+                <form action="ConsultorioServlet" method="POST">
                     <div class="form-group" size="5">
-                        <t2>Nombre de Usuario</t2><input type="text" size="5" class="form-control" id="uid" name="usuario"  value="<%= user.getUser()%>" readonly >
+                        <t2>Id de Consultorio</t2><input type="text" size="5" class="form-control" id="uid" name="id"  value="<%= consul.getId() %>" readonly >
                     </div>
                     <div class="form-group" size="5">
-                        <t2>Contraseña</t2><input type="text" class="form-control" id="uid" name="password"  value="<%= user.getPassword()%>" size="5">
-                        <br>
-                        <t2>Repetir Contraseña</t2><input type="text" class="form-control" id="uid" name="passwordr"  placeholder="repetir contraseña" size="5">
-                    </div>       
-                    <div>
-                        <select name="tipoUser">
-                            <option value="administrador">Administrador</option>
-                            <option value="AuxAdmi">Auxiliar Administrativo</option>
-                            <option value="AuxContable">Auxiliar Contable</option>                                                                    
-                        </select>
-                    </div>
+                        <t2>Nombre de Consultorio</t2><input type="text" class="form-control" id="uid" name="name"  value="<%= consul.getNombre() %>" size="5">                        
+                    </div>                           
                     <br>
-                    <button type="submit" name="ModReg" class="btn btn-default">Modificar</button>
+                    <button type="submit" name="ModCon" class="btn btn-default">Modificar</button>
                 </form>
                 <%
                 } else {
                 %>
-                <form action="UsuarioServlet" method="POST">
+                <form action="ConsultorioServlet" method="POST">
                     <div class="form-group" size="5">
-                        <t2>Nombre de Usuario</t2><input type="text" size="5" class="form-control" id="uid" name="usuario"  placeholder="usuario" >
+                        <t2>Id de Consultorio</t2><input type="text" size="5" class="form-control" id="uid" name="id"  value="">
                     </div>
                     <div class="form-group" size="5">
-                        <t2>Contraseña</t2><input type="text" class="form-control" id="uid" name="password"  placeholder="contraseña" size="5">
-                        <br>
-                        <t2>Repetir Contraseña</t2><input type="text" class="form-control" id="uid" name="passwordr"  placeholder="repetir contraseña" size="5">
-                    </div>       
-                    <div>
-                        <select name="tipoUser">
-                            <option value="administrador">Administrador</option>
-                            <option value="AuxAdmi">Auxiliar Administrativo</option>
-                            <option value="AuxContable">Auxiliar Contable</option>                                                                    
-                        </select>
-                    </div>
+                        <t2>Nombre de Consultorio</t2><input type="text" class="form-control" id="uid" name="name"  value="" size="5">                        
+                    </div>                           
                     <br>
-                    <button type="submit" name="enviarReg" class="btn btn-default">Registrar</button>
+                    <button type="submit" name="enviarCons" class="btn btn-default">Crear</button>
                 </form>
                 <%
                     }
@@ -186,8 +169,8 @@
                 <table class="table table-striped table-sm">
                     <thead>
                         <tr>
-                            <th>Usuario</th>
-                            <th>Tipo</th>
+                            <th>Id Consultorio</th>
+                            <th>Nombre Consultorio</th>
                             <th></th>
                             <th></th>   
                             <th></th>
@@ -196,15 +179,15 @@
                     </thead>
                     <tbody>
                         <%     if (request.getAttribute("lista") != null) {
-                                ArrayList usuarios = (ArrayList<Usuario>) request.getAttribute("lista");
-                                for (int i = 0; i < usuarios.size(); i++) {
-                                    Usuario usuario = (Usuario) usuarios.get(i);
+                                ArrayList<Consultorio> consul= (ArrayList<Consultorio>) request.getAttribute("lista");
+                                for (int i = 0; i < consul.size(); i++) {
+                                    Consultorio con = (Consultorio) consul.get(i);
                         %>
                         <tr>
-                            <td><%=usuario.getUser()%></td>
-                            <td><%=usuario.getTipo()%></td>                                                                                                                                 
-                            <td><a href="UsuarioServlet?borrar=<%=usuario.getUser()%>">Borrar</a></td>
-                            <td><a href="UsuarioServlet?editar=<%=usuario.getUser()%>">Editar</a></td>
+                            <td><%= con.getId() %></td>
+                            <td><%= con.getNombre() %></td>                                                                                                                                 
+                            <td><a href="ConsultorioServlet?borrar=<%= con.getId() %>">Borrar</a></td>
+                            <td><a href="ConsultorioServlet?editar=<%= con.getId() %>">Editar</a></td>
                         </tr>
                         <%
                                 }

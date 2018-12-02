@@ -4,13 +4,17 @@ use DigitalPanoramix;
   NombreConsultorio VARCHAR(30) not null,
   IdConsultorio Int not null,Primary Key(IdConsultorio)
 );
+
 create table Proveedor(
   NombreProveedor VARCHAR(20) not null,
   IdProveedor int not null,
   Primary key(IdProveedor),
   Telefono int not null, 
-  Direccion varchar(20)
+  Direccion varchar(20),
+  IdConsultorio Int not null,
+  FOREIGN key (IdConsultorio) REFERENCES Consultorio (IdConsultorio)
 );
+
 create table Producto(
   NombreProducto VARCHAR(30) not null,
   IdProducto int not null,

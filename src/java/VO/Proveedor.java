@@ -8,6 +8,7 @@ public class Proveedor {
     private int id;
     private int telefono;
     private String direccion;
+    private int consultorio;
     private ArrayList<Producto> productos;
 
     public Proveedor(String nombre, int id, int telefono, String direccion, ArrayList<Producto> productos) {
@@ -66,6 +67,14 @@ public class Proveedor {
 
     public void setProductos(ArrayList<Producto> productos) {
         this.productos = productos;
+    }
+
+    public int getConsultorio() {
+        return consultorio;
+    }
+
+    public void setConsultorio(int consultorio) {
+        this.consultorio = consultorio;
     }
 
 }

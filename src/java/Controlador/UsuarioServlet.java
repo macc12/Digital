@@ -57,8 +57,7 @@ public class UsuarioServlet extends HttpServlet {
             }
             RequestDispatcher rq = request.getRequestDispatcher("ContUsuarios.jsp");
             if (request.getParameter("borrar") != null) {
-                String cl = request.getParameter("borrar");
-                System.out.println(cl);
+                String cl = request.getParameter("borrar");                
                 Usuario temp = this.dao.buscarCl(cl);
                 dao.borrar(temp);
             } else if (request.getParameter("editar") != null) {

@@ -36,6 +36,10 @@
         <servlet-name>QuejasServlet</servlet-name>
         <servlet-class>Controlador.QuejasServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ConsultorioServlet</servlet-name>
+        <servlet-class>Controlador.ConsultorioServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IniServlet</servlet-name>
         <url-pattern>/IniServlet</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>QuejasServlet</servlet-name>
         <url-pattern>/QuejasServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConsultorioServlet</servlet-name>
+        <url-pattern>/ConsultorioServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
