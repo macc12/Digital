@@ -69,7 +69,34 @@ public class TrabajadorServlet extends HttpServlet {
                 }
             }
 
-            RequestDispatcher rq = request.getRequestDispatcher("Trabajador.jsp");
+            if (request.getParameter("initp") != null) {
+                ConsultorioDAO daoc = new ConsultorioDAO();
+                try {
+                    ArrayList<Trabajador> trabajadors = (ArrayList<Trabajador>) dao.listar();
+                    RequestDispatcher rq = request.getRequestDispatcher("Prestamos.jsp");
+                    request.setAttribute("trabajadores", trabajadors);
+                    rq.forward(request, response);
+                    response.sendRedirect("Prestamos.jsp");
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProveedorServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            if (request.getParameter("borrarp") != null) {
+                int id = Integer.parseInt(request.getParameter("borrarp"));
+                this.dao.elimpres(id);
+                ArrayList<Trabajador> trabajadors = (ArrayList<Trabajador>) dao.listar();
+                RequestDispatcher rq = request.getRequestDispatcher("Prestamos.jsp");
+                request.setAttribute("trabajadores", trabajadors);
+                rq.forward(request, response);
+            } else if (request.getParameter("editarp") != null){
+                int id = Integer.parseInt(request.getParameter("editarp"));                                
+                Trabajador trabajador = this.dao.buscar(id);
+                RequestDispatcher rq = request.getRequestDispatcher("Prestamos.jsp");
+                request.setAttribute("trabajador", trabajador);
+                rq.forward(request, response);
+            }
+            RequestDispatcher   rq = request.getRequestDispatcher("Trabajador.jsp");
             if (request.getParameter("borrar") != null) {
 
                 String id = request.getParameter("borrar");
@@ -172,6 +199,44 @@ public class TrabajadorServlet extends HttpServlet {
             }
         }
         //response.sendRedirect("TrabajadorServlet");
+        if (request.getParameter("crepres") != null) {
+            int id = Integer.parseInt(request.getParameter("trabajador"));
+            double deuda = Double.parseDouble(request.getParameter("cantidad"));
+            if (id > 0 && deuda > 0) {
+                try {
+                    if (!dao.editpres(id, deuda)) {
+                        response.sendRedirect("Prestamos.jsp?error=IngreseDatos");
+                    }
+                    ArrayList<Trabajador> trabajadors = (ArrayList<Trabajador>) this.dao.listarpres();
+                    RequestDispatcher rq = request.getRequestDispatcher("Prestamos.jsp");
+                    request.setAttribute("lista", trabajadors);
+                    rq.forward(request, response);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TrabajadorServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                response.sendRedirect("Prestamos.jsp?error=IngreseDatos");
+            }
+        }
+        if (request.getParameter("Modpre") != null) {
+            int id = Integer.parseInt(request.getParameter("trabajador"));
+            double deuda = Double.parseDouble(request.getParameter("cantidad"));
+            if (id > 0 && deuda > 0) {
+                try {
+                    if (!dao.editpres(id, deuda)) {
+                        response.sendRedirect("Prestamos.jsp?error=IngreseDatos");
+                    }
+                    ArrayList<Trabajador> trabajadors = (ArrayList<Trabajador>) this.dao.listarpres();
+                    RequestDispatcher rq = request.getRequestDispatcher("Prestamos.jsp");
+                    request.setAttribute("lista", trabajadors);
+                    rq.forward(request, response);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TrabajadorServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                response.sendRedirect("Prestamos.jsp?error=IngreseDatos");
+            }
+        }
     }
 
     /**

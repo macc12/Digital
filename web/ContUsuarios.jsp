@@ -1,5 +1,12 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="VO.Usuario"%>
+<%
+    HttpSession sesion = request.getSession();
+    Usuario usuario = (Usuario)sesion.getAttribute("usuario");
+    if( usuario == null){
+      response.sendRedirect("LogIn.jsp");
+    }else{ 
+%>
 <html lang="en">
     <head>
         <title>DigitalPanoramix - Acceder</title>
@@ -37,6 +44,7 @@
                         <li><a href="Producto.jsp">Productos</a></li>
                         <li class="active"><a href="ContUsuarios.jsp">Usuarios</a></li>
                         <li><a href="Consultorios.jsp">Consultorios</a></li>
+                        <li><a href="TrabajadorServlet?initp">Prestamos</a></li>
                         <li><a href="LogIn.jsp">Salir</a></li>
                     </ul>
 
@@ -141,9 +149,9 @@
                         <t2>Nombre de Usuario</t2><input type="text" size="5" class="form-control" id="uid" name="usuario"  value="<%= user.getUser()%>" readonly >
                     </div>
                     <div class="form-group" size="5">
-                        <t2>Contraseña</t2><input type="text" class="form-control" id="uid" name="password"  value="<%= user.getPassword()%>" size="5">
+                        <t2>Contraseña</t2><input type="password" class="form-control" id="uid" name="password"  value="<%= user.getPassword()%>" size="5">
                         <br>
-                        <t2>Repetir Contraseña</t2><input type="text" class="form-control" id="uid" name="passwordr"  placeholder="repetir contraseña" size="5">
+                        <t2>Repetir Contraseña</t2><input type="password" class="form-control" id="uid" name="passwordr"  placeholder="repetir contraseña" size="5">
                     </div>       
                     <div>
                         <select name="tipoUser">
@@ -237,3 +245,4 @@
     </body>
 
 </html>
+<%}%>

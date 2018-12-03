@@ -1,4 +1,4 @@
-<%@page import="VO.Consultorio"%>
+<%@page import="VO.Trabajador"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="VO.Usuario"%>
 <%
@@ -44,8 +44,8 @@
                         <li><a href="ProveedorServlet?init">Proveedores</a></li>
                         <li><a href="Producto.jsp">Productos</a></li>
                         <li><a href="ContUsuarios.jsp">Usuarios</a></li>
-                        <li class="active"><a href="Consultorios.jsp">Consultorios</a></li>
-                        <li><a href="TrabajadorServlet?initp">Prestamos</a></li>
+                        <li><a href="Consultorios.jsp">Consultorios</a></li>
+                        <li  class="active"><a href="TrabajadorServlet?initp">Prestamos</a></li>
                         <li><a href="LogIn.jsp">Salir</a></li>
                     </ul>
 
@@ -141,32 +141,46 @@
             <!-- Contact -->
             <div>
                 <%
-                    if (request.getAttribute("consultorio") != null) {
-                        Consultorio consul = (Consultorio) request.getAttribute("consultorio");
+                    if (request.getAttribute("trabajador") != null) {
+                        Trabajador trabajador = (Trabajador) request.getAttribute("trabajador");
 
                 %>  
-                <form action="ConsultorioServlet" method="POST">
+                <form action="TrabajadorServlet" method="POST">   
                     <div class="form-group" size="5">
-                        <t2>Id de Consultorio</t2><input type="text" size="5" class="form-control" id="uid" name="id"  value="<%= consul.getId() %>" readonly >
+                        <t2>Id</t2><input type="text" size="5" class="form-control" id="uid" name="id"  value="<%= trabajador.getId() %>" readonly>
                     </div>
                     <div class="form-group" size="5">
-                        <t2>Nombre de Consultorio</t2><input type="text" class="form-control" id="uid" name="name"  value="<%= consul.getNombre() %>" size="5">                        
-                    </div>                           
+                        <t2>Nombre</t2><input type="text" size="5" class="form-control" id="uid" name="nombre"  value="<%= trabajador.getNombre() %>" readonly>
+                    </div>
+                    <div class="form-group" size="5">
+                        <t2>Cantidad</t2><input type="text" size="5" class="form-control" id="uid" name="cantidad"  placeholder="usuario" >
+                    </div>
                     <br>
-                    <button type="submit" name="ModCon" class="btn btn-default">Modificar</button>
+                    <button type="submit" name="Modpre" class="btn btn-default">Modificar</button>
                 </form>
                 <%
                 } else {
                 %>
-                <form action="ConsultorioServlet" method="POST">
+                <form action="TrabajadorServlet" method="POST">
+                    <div>                        
+                        <select name="trabajador">
+                            <%                                if (request.getAttribute("trabajadores") != null) {
+                                    ArrayList<Trabajador> trabajadores = (ArrayList<Trabajador>) request.getAttribute("trabajadores");
+                                    for (int i = 0; i < trabajadores.size(); i++) {
+                                        Trabajador aux = trabajadores.get(i);
+                            %>
+                            <option values="<%= aux.getId() %>"><%= aux.getId() %></option>
+                            <%
+                                    }
+                                }
+                            %>
+                        </select>
+                    </div>                        
                     <div class="form-group" size="5">
-                        <t2>Id de Consultorio</t2><input type="text" size="5" class="form-control" id="uid" name="id"  value="">
+                        <t2>Cantidad</t2><input type="text" size="5" class="form-control" id="uid" name="cantidad"  placeholder="usuario" >
                     </div>
-                    <div class="form-group" size="5">
-                        <t2>Nombre de Consultorio</t2><input type="text" class="form-control" id="uid" name="name"  value="" size="5">                        
-                    </div>                           
-                    <br>
-                    <button type="submit" name="enviarCons" class="btn btn-default">Crear</button>
+                                               
+                    <button type="submit" name="crepres" class="btn btn-default">Crear</button>
                 </form>
                 <%
                     }
@@ -177,9 +191,9 @@
                 <table class="table table-striped table-sm">
                     <thead>
                         <tr>
-                            <th>Id Consultorio</th>
-                            <th>Nombre Consultorio</th>
-                            <th></th>
+                            <th>Nombre</th>
+                            <th>Cargo</th>
+                            <th>Deuda</th>
                             <th></th>   
                             <th></th>
                             <th></th>
@@ -187,15 +201,16 @@
                     </thead>
                     <tbody>
                         <%     if (request.getAttribute("lista") != null) {
-                                ArrayList<Consultorio> consul= (ArrayList<Consultorio>) request.getAttribute("lista");
-                                for (int i = 0; i < consul.size(); i++) {
-                                    Consultorio con = (Consultorio) consul.get(i);
+                                ArrayList trabajadores = (ArrayList<Trabajador>) request.getAttribute("lista");
+                                for (int i = 0; i < trabajadores.size(); i++) {
+                                    Trabajador trabajador = (Trabajador) trabajadores.get(i);
                         %>
                         <tr>
-                            <td><%= con.getId() %></td>
-                            <td><%= con.getNombre() %></td>                                                                                                                                 
-                            <td><a href="ConsultorioServlet?borrar=<%= con.getId() %>">Borrar</a></td>
-                            <td><a href="ConsultorioServlet?editar=<%= con.getId() %>">Editar</a></td>
+                            <td><%= trabajador.getNombre() %></td>
+                            <td><%= trabajador.getCargo() %></td>                                                                                                                                 
+                            <td><%= trabajador.getDeuda() %></td>                                                                                                                                 
+                            <td><a href="TrabajadorServlet?borrarp=<%= trabajador.getId() %>">Borrar</a></td>
+                            <td><a href="TrabajadorServlet?editarp=<%= trabajador.getId() %>">Editar</a></td>
                         </tr>
                         <%
                                 }

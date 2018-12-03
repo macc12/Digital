@@ -9,11 +9,11 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="VO.Usuario"%>
 <%
-   /* HttpSession sesion = request.getSession();
+    HttpSession sesion = request.getSession();
     Usuario usuario = (Usuario) sesion.getAttribute("usuario");
     if (usuario == null) {
         response.sendRedirect("LogIn.jsp");
-    } else {*/
+    } else {
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,6 +56,7 @@
                         <li><a href="Producto.jsp">Productos</a></li>
                         <li><a href="ContUsuarios.jsp">Usuarios</a></li>
                         <li><a href="Consultorios.jsp">Consultorios</a></li>
+                        <li><a href="TrabajadorServlet?initp">Prestamos</a></li>
                         <li><a href="LogIn.jsp">Salir</a></li>
                     </ul>
 
@@ -421,4 +422,4 @@
     </body>
 
 </html>
-<%//}%>
+<%}%>

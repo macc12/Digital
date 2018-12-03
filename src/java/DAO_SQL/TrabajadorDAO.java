@@ -215,4 +215,109 @@ public class TrabajadorDAO implements IBaseDatos<Trabajador> {
         }
         return temp;
     }
+    
+    public List<Trabajador> listarpres () throws SQLException {
+        List<Trabajador> trabajadors = null;
+        String query = "SELECT * FROM Trabajador where Deuda<>0";
+        Connection connection = Conexion.getConnection();
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            String nombre = null;
+            String apellido = null;
+            int id = 0;
+            String cargo = null;
+            double sueldo = 0;
+            int diasTraba = 0;
+            double deuda = 0;
+            double pagado = 0;
+            int consul = 0;
+            while (rs.next()) {
+                if (trabajadors == null) {
+                    trabajadors = new ArrayList<>();
+                }
+                Trabajador aux = new Trabajador();
+
+                nombre = rs.getString("NombreTrabajador");
+                aux.setNombre(nombre);
+
+                apellido = rs.getString("ApellidoTrabajador");
+                aux.setApellido(apellido);
+
+                id = rs.getInt("IdTrabajador");
+                aux.setId(id);
+
+                cargo = rs.getString("Cargo");
+                aux.setCargo(cargo);
+
+                sueldo = rs.getDouble("Sueldo");
+                aux.setSueldo(sueldo);
+
+                diasTraba = rs.getInt("DiasTrabajados");
+                aux.setDiasTraba(diasTraba);
+
+                deuda = rs.getDouble("Deuda");
+                aux.setDeuda(deuda);
+
+                pagado = rs.getDouble("Pagado");
+                aux.setPagado(pagado);
+                
+                consul = rs.getInt("IdConsultorio");
+                aux.setConsultorio(consul);
+
+                trabajadors.add(aux);
+            }
+
+            rs.close();
+        } catch (Exception e) {
+            System.out.println("Problemas al obtener la lista de Cliente");
+            e.printStackTrace();
+        }
+        return trabajadors;
+    }
+    
+    public boolean editpres (int id, double deuda) throws SQLException {
+        int result = 0;
+        Connection connection = Conexion.getConnection();
+        String query = "update Trabajador set Deuda = ? where IdTrabajador = ?";
+        PreparedStatement preparedStmt = null;
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setDouble(1, deuda);
+            preparedStmt.setInt(2, id);
+            
+            result = preparedStmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (result == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    public boolean elimpres (int id) throws SQLException {
+        int result = 0;
+        Connection connection = Conexion.getConnection();
+        String query = "update Trabajador set Deuda = ? where IdTrabajador = ?";
+        PreparedStatement preparedStmt = null;
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setDouble(1, 0);
+            preparedStmt.setInt(2, id);
+            
+            result = preparedStmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (result == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
