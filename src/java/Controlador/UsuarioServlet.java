@@ -44,20 +44,20 @@ public class UsuarioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         try {
             RequestDispatcher rqa = request.getRequestDispatcher("Index.jsp");
             if (request.getParameter("cerrarses") != null) {
                 HttpSession sesionUsuario = request.getSession();
                 Usuario _sesionUsuario = (Usuario) sesionUsuario.getAttribute("usuario");
                 if (_sesionUsuario != null) {
-                    sesionUsuario.invalidate();                   
+                    sesionUsuario.invalidate();
                     response.sendRedirect("LogIn.jsp");
                 }
             }
             RequestDispatcher rq = request.getRequestDispatcher("ContUsuarios.jsp");
             if (request.getParameter("borrar") != null) {
-                String cl = request.getParameter("borrar");                
+                String cl = request.getParameter("borrar");
                 Usuario temp = this.dao.buscarCl(cl);
                 dao.borrar(temp);
             } else if (request.getParameter("editar") != null) {
@@ -102,7 +102,7 @@ public class UsuarioServlet extends HttpServlet {
                                 if (temp != null) {
                                     sesionUsuario.setAttribute("usuario", temp);
                                     sesionUsuario.setMaxInactiveInterval(20);
-                                    response.sendRedirect("Index.jsp");                                    
+                                    response.sendRedirect("Index.jsp");
                                 } else {
                                     response.sendRedirect("LogIn.jsp");
                                 }
@@ -121,7 +121,27 @@ public class UsuarioServlet extends HttpServlet {
                             response.sendRedirect("IAuxCont.jsp");
                         }
                         if (temp.getTipo().compareTo("AuxAdmi") == 0) {
-                            response.sendRedirect("IAuxAdmini.jsp");
+                            HttpSession sesionUsuario = request.getSession();
+                            Usuario _sesionUsuario = (Usuario) sesionUsuario.getAttribute("usuario");
+                            if (_sesionUsuario == null) {
+                                //El usuario no a creado la sesion
+                                if (temp != null) {
+                                    sesionUsuario.setAttribute("usuario", temp);
+                                    sesionUsuario.setMaxInactiveInterval(20);
+                                    response.sendRedirect("Index.jsp");
+                                } else {
+                                    response.sendRedirect("LogIn.jsp");
+                                }
+                            } else {
+                                response.sendRedirect("Index.jsp");
+                            }
+                            if (temp != null) {
+
+                            } else {
+                                request.setAttribute("Error", "Revisar usuario/ pass");
+                                RequestDispatcher rq = request.getRequestDispatcher("LogIn.jsp");
+                                rq.forward(request, response);
+                            }
                         }
                     } else {
                         response.sendRedirect("LogIn.jsp?errorendatos");
