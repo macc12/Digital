@@ -6,7 +6,9 @@
 package Controlador;
 
 import DAO.DAOProvedor;
+import DAO_SQL.ConsultorioDAO;
 import DAO_SQL.ProveedorDAO;
+import VO.Consultorio;
 import VO.Proveedor;
 
 import java.io.IOException;
@@ -48,6 +50,19 @@ public class ProveedorServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+
+            if (request.getParameter("init") != null) {
+                ConsultorioDAO daoc = new ConsultorioDAO();
+                try {
+                    ArrayList<Consultorio> consultorios = (ArrayList<Consultorio>) daoc.listar();
+                    RequestDispatcher rq = request.getRequestDispatcher("Proveedor.jsp");
+                    request.setAttribute("consultorios", consultorios);
+                    rq.forward(request, response);
+                    response.sendRedirect("Proveedor.jsp");
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProveedorServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }            
             RequestDispatcher rq = request.getRequestDispatcher("Proveedor.jsp");
             if (request.getParameter("borrar") != null) {
 
@@ -61,7 +76,7 @@ public class ProveedorServlet extends HttpServlet {
                 Proveedor proveedor = this.dao.buscar(Integer.parseInt(id));
                 request.setAttribute("proveedor", proveedor);
                 rq.forward(request, response);
-
+                                
             }
             ArrayList<Proveedor> proveedores = (ArrayList<Proveedor>) this.dao.listar();
             request.setAttribute("lista", proveedores);
@@ -83,13 +98,23 @@ public class ProveedorServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getParameter("enviar") != null) {
+            ConsultorioDAO daoc = new ConsultorioDAO();
             int id = Integer.parseInt(request.getParameter("id"));
             String nombre = request.getParameter("nombre");
             String direccion = request.getParameter("direccion");
+            String consul = request.getParameter("consultorio");
+            Consultorio aux = null;
+            try {
+                aux = daoc.buscarc(consul);
+            } catch (SQLException ex) {
+                Logger.getLogger(ProveedorServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            int idco = aux.getId();
             int telefono = Integer.parseInt(request.getParameter("telefono"));
             if (nombre != null && telefono != 0 && nombre.length() > 0 && direccion.length() > 0 /*&& productos !=null*/) {
                 try {
                     Proveedor temp = new Proveedor(nombre, id, telefono, direccion, new ArrayList<>());
+                    temp.setConsultorio(idco);
                     if (!dao.crear(temp)) {
                         response.sendRedirect("Proveedor.jsp?error=ErrorDatos");
                     }
@@ -126,6 +151,7 @@ public class ProveedorServlet extends HttpServlet {
                 response.sendRedirect("Proveedor.jsp?error=IngreseDatos");
             }
         }
+
         response.sendRedirect("ProveedorServlet");
     }
 

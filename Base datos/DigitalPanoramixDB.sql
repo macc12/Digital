@@ -5,6 +5,10 @@ use DigitalPanoramix;
   IdConsultorio Int not null,Primary Key(IdConsultorio)
 );
 
+insert into Consultorio values ('martin', 10001);
+insert into Consultorio values ('carlos', 10001);
+insert into Consultorio values ('pepe', 10001);
+
 create table Proveedor(
   NombreProveedor VARCHAR(20) not null,
   IdProveedor int not null,

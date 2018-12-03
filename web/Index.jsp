@@ -45,7 +45,7 @@
 				<li class="active"><a href="#">Inicio</a></li>
 				<li><a href="Trabajador.jsp">Trabajadores</a></li>
 				<li><a href="Cliente.jsp">Clientes</a></li>
-				<li><a href="Proveedor.jsp">Proveedores</a></li>
+                                <li><a href="ProveedorServlet?init">Proveedores</a></li>
 				<li><a href="Producto.jsp">Productos</a></li>
                                 <li><a href="ContUsuarios.jsp">Usuarios</a></li>
                                 <li><a href="Consultorios.jsp">Consultorios</a></li>

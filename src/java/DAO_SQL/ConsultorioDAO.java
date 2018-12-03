@@ -142,5 +142,31 @@ public class ConsultorioDAO implements IBaseDatos<Consultorio>{
         }
         return temp;
     }
-    
+    public Consultorio buscarc(String cl) throws SQLException {
+        Consultorio temp = null;
+        PreparedStatement preparedStmt = null;
+        String query = "SELECT * FROM Consultorio where NombreConsultorio = ?";
+        Connection connection = Conexion.getConnection();
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, cl);
+            ResultSet rs = preparedStmt.executeQuery(); 
+            String nombre = null;
+            int id = 0;
+            while(rs.next()){
+                temp = new Consultorio();
+                
+                nombre = rs.getString("NombreConsultorio");
+                id = rs.getInt("IdConsultorio");
+                
+                temp.setNombre(nombre);
+                temp.setId(id);
+                
+            }
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return temp;
+    }
 }

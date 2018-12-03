@@ -3,12 +3,12 @@ public class Cliente {
     private String nombre;
     private String apellido;
     private int id;
-    private String HistoriaClinica;
+    private String HistoriaClinica;    
     public Cliente(String nombre, String apellido, int id, String HistoriaClinica) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.id = id;
-        this.HistoriaClinica = HistoriaClinica;
+        this.HistoriaClinica = HistoriaClinica;        
     }
 
     public Cliente() {

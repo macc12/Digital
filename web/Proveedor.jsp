@@ -3,15 +3,17 @@
     Created on : 10/09/2018, 05:46:01 PM
     Author     : ACER
 --%>
+<%@page import="Controlador.ProveedorServlet"%>
+<%@page import="VO.Consultorio"%>
 <%@page import="VO.Proveedor"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="VO.Usuario"%>
 <%
-    HttpSession sesion = request.getSession();
-    Usuario usuario = (Usuario)sesion.getAttribute("usuario");
-    if( usuario == null){
-      response.sendRedirect("LogIn.jsp");
-    }else{ 
+   /* HttpSession sesion = request.getSession();
+    Usuario usuario = (Usuario) sesion.getAttribute("usuario");
+    if (usuario == null) {
+        response.sendRedirect("LogIn.jsp");
+    } else {*/
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -158,7 +160,7 @@
                         %>
                         <form action="ProveedorServlet?editar" method="POST">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="id" placeholder="id" value="<%=proveedor.getId()%>">
+                                <input type="text" class="form-control" id="uid" name="id" placeholder="id" value="<%=proveedor.getId()%>" readolny>
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre" value="<%=proveedor.getNombre()%>">
@@ -168,8 +170,7 @@
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="pwd" name="direccion" placeholder="direccion" value="<%=proveedor.getDireccion()%>">
-                            </div>
-                            
+                            </div>                            
                             <br>
 
                             <button type="submit" name="modificar" class="btn btn-default">Modificar</button>
@@ -189,7 +190,19 @@
                             <div class="form-group">
                                 <input type="text" class="form-control" id="pwd" name="direccion" placeholder="direccion">
                             </div>
-                            
+                            <select name="consultorio">
+                                <%                                    
+                                    if (request.getAttribute("consultorios") != null) {
+                                        ArrayList<Consultorio> consultorios = (ArrayList<Consultorio>) request.getAttribute("consultorios");
+                                        for (int i = 0; i < consultorios.size(); i++) {
+                                            Consultorio aux = consultorios.get(i);
+                                %>
+                                <option values="<%= aux.getNombre()%>"><%= aux.getNombre()%></option>
+                                <%
+                                        }
+                                    }
+                                %>
+                            </select>
                             <br><button type="submit" name="enviar" class="btn btn-default">Enviar</button>
                         </form>
                         <%
@@ -212,7 +225,7 @@
                                 <th>Nombre</th>                                
                                 <th>Telefono</th>   
                                 <th>Direccion</th>
-                                <th></th>
+                                <th>Consultorio</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -226,7 +239,8 @@
                                 <td><%=proveedor.getId()%></td>
                                 <td><%=proveedor.getNombre()%></td>
                                 <td><%=proveedor.getTelefono()%></td>
-                                <td><%=proveedor.getDireccion()%></td>                      
+                                <td><%=proveedor.getDireccion()%></td>
+                                <td><%=proveedor.getConsultorio()%></td>
                                 <td><a href="ProveedorServlet?borrar=<%=proveedor.getId()%>">Borrar</a></td>
                                 <td><a href="ProveedorServlet?editar=<%=proveedor.getId()%>">Editar</a></td>
                             </tr>
@@ -407,4 +421,4 @@
     </body>
 
 </html>
-<%}%>
+<%//}%>

@@ -32,6 +32,7 @@ public class ProveedorDAO implements IBaseDatos<Proveedor>{
             String nombre = null;
             int telefono = 0;
             String direccion = null;
+            int consultorio;
             while (rs.next()) {
                 if (proveedors == null) {
                     proveedors = new ArrayList<>();
@@ -49,6 +50,9 @@ public class ProveedorDAO implements IBaseDatos<Proveedor>{
                 
                 direccion = rs.getString("Direccion");
                 aux.setDireccion(direccion);
+                
+                consultorio = rs.getInt("IdConsultorio");
+                aux.setConsultorio(consultorio);
 
                 proveedors.add(aux);
             }
@@ -64,7 +68,7 @@ public class ProveedorDAO implements IBaseDatos<Proveedor>{
     public boolean crear(Proveedor t) throws SQLException {
         int result = 0;
         Connection connection = Conexion.getConnection();
-        String query = " insert into Proveedor" + " values (?,?,?,?)";
+        String query = " insert into Proveedor" + " values (?,?,?,?,?)";
         PreparedStatement preparedStmt = null;
         try {
             preparedStmt = connection.prepareStatement(query);
@@ -72,6 +76,7 @@ public class ProveedorDAO implements IBaseDatos<Proveedor>{
             preparedStmt.setInt(2, t.getId());
             preparedStmt.setInt(3, t.getTelefono());
             preparedStmt.setString(4, t.getDireccion());
+            preparedStmt.setInt(5, t.getConsultorio());
 
             result = preparedStmt.executeUpdate();
         } catch (SQLException e) {
@@ -141,7 +146,8 @@ public class ProveedorDAO implements IBaseDatos<Proveedor>{
             int id = 0;
             String nombre = null;
             int telefono = 0;
-            String direccion = null;        
+            String direccion = null;   
+            int consultorio;
             if (rs.next()) {
                 temp = new Proveedor();
                 
@@ -155,7 +161,10 @@ public class ProveedorDAO implements IBaseDatos<Proveedor>{
                 temp.setTelefono(telefono);
                 
                 direccion = rs.getString("Direccion");
-                temp.setDireccion(direccion);                               
+                temp.setDireccion(direccion);
+                
+                consultorio = rs.getInt("IdConsultorio");
+                temp.setConsultorio(consultorio);
             }
             rs.close();
         } catch (Exception e) {
