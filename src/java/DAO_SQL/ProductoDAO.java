@@ -28,13 +28,13 @@ public class ProductoDAO implements IBaseDatos<Producto> {
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
-            
+
             String nombre = null;
             int id = 0;
             double precio = 0;
             String estado = null;
             int cantidad = 0;
-
+            int idcons = 0;
             while (rs.next()) {
                 if (productos == null) {
                     productos = new ArrayList<>();
@@ -49,13 +49,16 @@ public class ProductoDAO implements IBaseDatos<Producto> {
 
                 precio = rs.getDouble("Precio");
                 aux.setPrecio(precio);
-                
+
                 estado = rs.getString("Estado");
                 aux.setEstado(estado);
-                
+
                 cantidad = rs.getInt("Cantidad");
                 aux.setCantidad(cantidad);
-                
+
+                idcons = rs.getInt("IdConsultorio");
+                aux.setConsultorio(idcons);
+
                 productos.add(aux);
             }
 
@@ -71,7 +74,7 @@ public class ProductoDAO implements IBaseDatos<Producto> {
     public boolean crear(Producto t) throws SQLException {
         int result = 0;
         Connection connection = Conexion.getConnection();
-        String query = " insert into Producto" + " values (?,?,?,?,?)";
+        String query = " insert into Producto" + " values (?,?,?,?,?,?)";
         PreparedStatement preparedStmt = null;
         try {
             preparedStmt = connection.prepareStatement(query);
@@ -80,13 +83,14 @@ public class ProductoDAO implements IBaseDatos<Producto> {
             preparedStmt.setDouble(3, t.getPrecio());
             preparedStmt.setString(4, t.getEstado());
             preparedStmt.setInt(5, t.getCantidad());
+            preparedStmt.setInt(6, t.getConsultorio());
 
             result = preparedStmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         if (result == 0) {
-            return false;            
+            return false;
         } else {
             return true;
         }
@@ -125,7 +129,7 @@ public class ProductoDAO implements IBaseDatos<Producto> {
             preparedStmt.setString(3, t.getEstado());
             preparedStmt.setInt(4, t.getCantidad());
             preparedStmt.setInt(5, cl);
-            result = preparedStmt.executeUpdate();                
+            result = preparedStmt.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -134,7 +138,7 @@ public class ProductoDAO implements IBaseDatos<Producto> {
             return false;
         } else {
             return true;
-        } 
+        }
     }
 
     @Override
@@ -146,15 +150,16 @@ public class ProductoDAO implements IBaseDatos<Producto> {
         try {
             preparedStmt = connection.prepareStatement(query);
             preparedStmt.setInt(1, cl);
-            ResultSet rs = preparedStmt.executeQuery();            
+            ResultSet rs = preparedStmt.executeQuery();
             String nombre = null;
             int id = 0;
             double precio = 0;
             String estado = null;
-            int cantidad = 0;      
+            int cantidad = 0;
+            int consul = 0;
             if (rs.next()) {
                 temp = new Producto();
-                
+
                 nombre = rs.getString("NombreProducto");
                 temp.setNombre(nombre);
 
@@ -163,12 +168,15 @@ public class ProductoDAO implements IBaseDatos<Producto> {
 
                 precio = rs.getDouble("Precio");
                 temp.setPrecio(precio);
-                
+
                 estado = rs.getString("Estado");
                 temp.setEstado(estado);
-                
+
                 cantidad = rs.getInt("Cantidad");
-                temp.setCantidad(cantidad);                                
+                temp.setCantidad(cantidad);
+
+                consul = rs.getInt("IdConsultorio");
+                temp.setConsultorio(consul);
             }
             rs.close();
         } catch (Exception e) {
@@ -177,4 +185,118 @@ public class ProductoDAO implements IBaseDatos<Producto> {
         return temp;
     }
 
+    public Producto buscarc(int cl) throws SQLException {
+        Producto temp = null;
+        PreparedStatement preparedStmt = null;
+        String query = "SELECT * FROM Producto where IdConsultorio = ?";
+        Connection connection = Conexion.getConnection();
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setInt(1, cl);
+            ResultSet rs = preparedStmt.executeQuery();
+            String nombre = null;
+            int id = 0;
+            double precio = 0;
+            String estado = null;
+            int cantidad = 0;
+            int consul = 0;
+            if (rs.next()) {
+                temp = new Producto();
+
+                nombre = rs.getString("NombreProducto");
+                temp.setNombre(nombre);
+
+                id = rs.getInt("IdProducto");
+                temp.setId(id);
+
+                precio = rs.getDouble("Precio");
+                temp.setPrecio(precio);
+
+                estado = rs.getString("Estado");
+                temp.setEstado(estado);
+
+                cantidad = rs.getInt("Cantidad");
+                temp.setCantidad(cantidad);
+
+                consul = rs.getInt("IdConsultorio");
+                temp.setConsultorio(consul);
+            }
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return temp;
+    }
+
+    public List<Producto> listarc(int cl) throws SQLException {
+        List<Producto> productos = null;
+        String query = "SELECT * FROM Producto where IdConsultorio = ?";
+        PreparedStatement preparedStmt = null;
+        Connection connection = Conexion.getConnection();
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setInt(1, cl);
+            ResultSet rs = preparedStmt.executeQuery();
+
+            String nombre = null;
+            int id = 0;
+            double precio = 0;
+            String estado = null;
+            int cantidad = 0;
+            int idcons = 0;
+            while (rs.next()) {
+                if (productos == null) {
+                    productos = new ArrayList<>();
+                }
+                Producto aux = new Producto();
+
+                nombre = rs.getString("NombreProducto");
+                aux.setNombre(nombre);
+
+                id = rs.getInt("IdProducto");
+                aux.setId(id);
+
+                precio = rs.getDouble("Precio");
+                aux.setPrecio(precio);
+
+                estado = rs.getString("Estado");
+                aux.setEstado(estado);
+
+                cantidad = rs.getInt("Cantidad");
+                aux.setCantidad(cantidad);
+
+                idcons = rs.getInt("IdConsultorio");
+                aux.setConsultorio(idcons);
+
+                productos.add(aux);
+            }
+
+            rs.close();
+        } catch (Exception e) {
+            System.out.println("Problemas al obtener la lista de Producto");
+            e.printStackTrace();
+        }
+        return productos;
+    }
+    public boolean actualizar(int cl, Producto t) throws SQLException {
+        int result = 0;
+        Connection connection = Conexion.getConnection();
+        String query = "update Producto set Precio = ?, Cantidad = ? where IdProducto = ?";
+        PreparedStatement preparedStmt = null;
+        try {
+            preparedStmt = connection.prepareStatement(query);            
+            preparedStmt.setDouble(1, t.getPrecio());            
+            preparedStmt.setInt(2, t.getCantidad());
+            preparedStmt.setInt(3, cl);
+            result = preparedStmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (result == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

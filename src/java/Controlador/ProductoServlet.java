@@ -7,7 +7,9 @@ package Controlador;
 
 
 import DAO.DAOProducto;
+import DAO_SQL.ConsultorioDAO;
 import DAO_SQL.ProductoDAO;
+import VO.Consultorio;
 import VO.Producto;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -48,6 +50,20 @@ public class ProductoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            
+            if (request.getParameter("init") != null) {
+                ConsultorioDAO daoc = new ConsultorioDAO();
+                try {
+                    ArrayList<Consultorio> consultorios = (ArrayList<Consultorio>) daoc.listar();
+                    RequestDispatcher rq = request.getRequestDispatcher("Producto.jsp");
+                    request.setAttribute("consultorios", consultorios);
+                    rq.forward(request, response);
+                    response.sendRedirect("Producto.jsp");
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProveedorServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
             RequestDispatcher rq = request.getRequestDispatcher("Producto.jsp");
             if (request.getParameter("borrar") != null) {
                 String id = request.getParameter("borrar");
@@ -79,14 +95,24 @@ public class ProductoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getParameter("enviar") != null) {
+            ConsultorioDAO daoc = new ConsultorioDAO();
             int id = Integer.parseInt(request.getParameter("id"));
             String nombre = request.getParameter("nombre");
             String estado = request.getParameter("estado");
             int cantidad = Integer.parseInt(request.getParameter("cantidad"));
-            double precio = Double.parseDouble(request.getParameter("precio")); 
+            double precio = Double.parseDouble(request.getParameter("precio"));
+            String consul = request.getParameter("consultorio");
+            Consultorio aux = null;
+            try {
+                aux = daoc.buscarc(consul);
+            } catch (SQLException ex) {
+                Logger.getLogger(ProveedorServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            int idco = aux.getId();
             if (nombre != null && precio > 0 && cantidad > 0&& nombre.length() > 0  && estado.length() > 0) {
                 try {
                     Producto temp = new Producto(nombre, id, precio, estado, cantidad);
+                    temp.setConsultorio(idco);
                     if (!dao.crear(temp)) {
                         response.sendRedirect("Producto.jsp?error=ErrorDatos");
                     }

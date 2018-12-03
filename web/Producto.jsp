@@ -3,6 +3,7 @@
     Created on : 10/09/2018, 05:46:01 PM
     Author     : ACER
 --%>
+<%@page import="VO.Consultorio"%>
 <%@page import="VO.Producto"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="VO.Usuario"%>
@@ -51,10 +52,11 @@
                         <li><a href="TrabajadorServlet?init">Trabajadores</a></li>
                         <li><a href="ClienteServlet?init">Clientes</a></li>
                         <li><a href="ProveedorServlet?init">Proveedores</a></li>
-                        <li class="active"><a href="Producto.jsp">Productos</a></li>
+                        <li class="active"><a href="ProductoServlet?init">Productos</a></li>
                         <li><a href="ContUsuarios.jsp">Usuarios</a></li>
                         <li><a href="Consultorios.jsp">Consultorios</a></li>
                         <li><a href="TrabajadorServlet?initp">Prestamos</a></li>
+                        <li><a href="InventarioServlet?init">Inventario</a></li>
                         <li><a href="LogIn.jsp">Salir</a></li>
                     </ul>
 
@@ -180,6 +182,19 @@
                         <%                        } else {
                         %>  
                         <form action="ProductoServlet" method="POST">
+                            <select name="consultorio">
+                                <%                                    
+                                    if (request.getAttribute("consultorios") != null) {
+                                        ArrayList<Consultorio> consultorios = (ArrayList<Consultorio>) request.getAttribute("consultorios");
+                                        for (int i = 0; i < consultorios.size(); i++) {
+                                            Consultorio aux = consultorios.get(i);
+                                %>
+                                <option values="<%= aux.getNombre()%>"><%= aux.getNombre()%></option>
+                                <%
+                                        }
+                                    }
+                                %>
+                            </select>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="uid" name="id" placeholder="Id">
                             </div>

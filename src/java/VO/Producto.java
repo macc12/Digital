@@ -1,10 +1,13 @@
 package VO;
-public class Producto{
+
+public class Producto {
+
     private String nombre;
     private int id;
     private double precio;
-    private String  estado;
+    private String estado;
     private int cantidad;
+    private int consultorio;
 
     public Producto(String nombre, int id, double precio, String estado, int cantidad) {
         this.nombre = nombre;
@@ -16,7 +19,7 @@ public class Producto{
 
     public Producto() {
     }
-    
+
     public String getNombre() {
         return nombre;
     }
@@ -57,6 +60,12 @@ public class Producto{
         this.cantidad = cantidad;
     }
 
-    
-    
+    public int getConsultorio() {
+        return consultorio;
+    }
+
+    public void setConsultorio(int consultorio) {
+        this.consultorio = consultorio;
+    }
+
 }

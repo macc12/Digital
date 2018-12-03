@@ -47,10 +47,11 @@
                         <li class="active"><a href="TrabajadorServlet?init">Trabajadores</a></li>
                         <li ><a href="ClienteServlet?init">Clientes</a></li>
                         <li><a href="ProveedorServlet?init">Proveedores</a></li>
-                        <li><a href="Producto.jsp">Productos</a></li>
+                        <li><a href="ProductoServlet?init">Productos</a></li>
                         <li><a href="ContUsuarios.jsp">Usuarios</a></li>
                         <li><a href="Consultorios.jsp">Consultorios</a></li>
                         <li><a href="TrabajadorServlet?initp">Prestamos</a></li>
+                        <li><a href="InventarioServlet?init">Inventario</a></li>
                         <li><a href="LogIn.jsp">Salir</a></li>
                     </ul>
 

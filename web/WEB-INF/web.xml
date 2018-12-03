@@ -40,6 +40,10 @@
         <servlet-name>ConsultorioServlet</servlet-name>
         <servlet-class>Controlador.ConsultorioServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InventarioServlet</servlet-name>
+        <servlet-class>Controlador.InventarioServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IniServlet</servlet-name>
         <url-pattern>/IniServlet</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>ConsultorioServlet</servlet-name>
         <url-pattern>/ConsultorioServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InventarioServlet</servlet-name>
+        <url-pattern>/InventarioServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

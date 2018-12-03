@@ -1,4 +1,5 @@
 <%@page import="VO.Consultorio"%>
+<%@page import="VO.Producto"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="VO.Usuario"%>
 <%
@@ -6,7 +7,7 @@
     Usuario usuario = (Usuario)sesion.getAttribute("usuario");
     if( usuario == null){
       response.sendRedirect("LogIn.jsp");
-    }else{ 
+    }else{
 %>
 <html lang="en">
     <head>
@@ -44,9 +45,9 @@
                         <li><a href="ProveedorServlet?init">Proveedores</a></li>
                         <li><a href="ProductoServlet?init">Productos</a></li>
                         <li><a href="ContUsuarios.jsp">Usuarios</a></li>
-                        <li class="active"><a href="Consultorios.jsp">Consultorios</a></li>
+                        <li><a href="Consultorios.jsp">Consultorios</a></li>
                         <li><a href="TrabajadorServlet?initp">Prestamos</a></li>
-                        <li><a href="InventarioServlet?init">Inventario</a></li>
+                        <li class="active"><a href="InventarioServlet?init">Inventario</a></li>
                         <li><a href="LogIn.jsp">Salir</a></li>
                     </ul>
 
@@ -142,32 +143,43 @@
             <!-- Contact -->
             <div>
                 <%
-                    if (request.getAttribute("consultorio") != null) {
-                        Consultorio consul = (Consultorio) request.getAttribute("consultorio");
+                    if (request.getAttribute("producto") != null) {
+                        Producto producto = (Producto) request.getAttribute("producto");
 
                 %>  
-                <form action="ConsultorioServlet" method="POST">
+                <form action="InventarioServlet" method="POST">
                     <div class="form-group" size="5">
-                        <t2>Id de Consultorio</t2><input type="text" size="5" class="form-control" id="uid" name="id"  value="<%= consul.getId() %>" readonly >
+                        <t2>Id Producto</t2><input type="text" size="5" class="form-control" id="uid" name="idprod"  value="<%= producto.getId() %>" readonly > <br>
+                        <t2>Id Producto</t2><input type="text" size="5" class="form-control" id="uid" name="idcons"  value="<%= producto.getConsultorio() %>" readonly > 
                     </div>
                     <div class="form-group" size="5">
-                        <t2>Nombre de Consultorio</t2><input type="text" class="form-control" id="uid" name="name"  value="<%= consul.getNombre() %>" size="5">                        
+                        <t2>Precio</t2><input type="" class="form-control" id="uid" name="Precio"  value="<%= producto.getPrecio() %>" size="5">
+                        <br>
+                        <t2>Cantidad</t2><input type="" class="form-control" id="uid" name="cantidad"  value="<%= producto.getCantidad() %>" size="5">
                     </div>                           
                     <br>
-                    <button type="submit" name="ModCon" class="btn btn-default">Modificar</button>
+                    <button type="submit" name="ModPro" class="btn btn-default">Modificar</button>
                 </form>
                 <%
                 } else {
                 %>
-                <form action="ConsultorioServlet" method="POST">
-                    <div class="form-group" size="5">
-                        <t2>Id de Consultorio</t2><input type="text" size="5" class="form-control" id="uid" name="id"  value="">
-                    </div>
-                    <div class="form-group" size="5">
-                        <t2>Nombre de Consultorio</t2><input type="text" class="form-control" id="uid" name="name"  value="" size="5">                        
-                    </div>                           
+                <form action="InventarioServlet" method="POST">
                     <br>
-                    <button type="submit" name="enviarCons" class="btn btn-default">Crear</button>
+                    <select name="consultorio">
+                        <%
+                            if (request.getAttribute("consultorios") != null) {
+                                ArrayList<Consultorio> consultorios = (ArrayList<Consultorio>) request.getAttribute("consultorios");
+                                for (int i = 0; i < consultorios.size(); i++) {
+                                    Consultorio aux = consultorios.get(i);
+                        %>
+                        <option values="<%= aux.getNombre()%>"><%= aux.getNombre()%></option>
+                        <%
+                                }
+                            }
+                        %>
+                    </select>
+                    <br>
+                    <button type="submit" name="enviarCon" class="btn btn-default">Buscar</button>
                 </form>
                 <%
                     }
@@ -178,25 +190,27 @@
                 <table class="table table-striped table-sm">
                     <thead>
                         <tr>
-                            <th>Id Consultorio</th>
-                            <th>Nombre Consultorio</th>
-                            <th></th>
-                            <th></th>   
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Consultorio</th>   
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <%     if (request.getAttribute("lista") != null) {
-                                ArrayList<Consultorio> consul= (ArrayList<Consultorio>) request.getAttribute("lista");
-                                for (int i = 0; i < consul.size(); i++) {
-                                    Consultorio con = (Consultorio) consul.get(i);
+                                ArrayList productos = (ArrayList<Producto>) request.getAttribute("lista");
+                                for (int i = 0; i < productos.size(); i++) {
+                                    Producto producto = (Producto) productos.get(i);
                         %>
                         <tr>
-                            <td><%= con.getId() %></td>
-                            <td><%= con.getNombre() %></td>                                                                                                                                 
-                            <td><a href="ConsultorioServlet?borrar=<%= con.getId() %>">Borrar</a></td>
-                            <td><a href="ConsultorioServlet?editar=<%= con.getId() %>">Editar</a></td>
+                            <td><%= producto.getNombre()%></td>
+                            <td><%= producto.getPrecio()%></td>                                                                                                                                 
+                            <td><%= producto.getCantidad()%></td>                                                                                                                                 
+                            <td><%= producto.getConsultorio()%></td>                                                                                                                                 
+                            <td><a href="InventarioServlet?borrar=<%=producto.getId()%>">Borrar</a></td>
+                            <td><a href="InventarioServlet?editar=<%=producto.getId()%>">Editar</a></td>
                         </tr>
                         <%
                                 }

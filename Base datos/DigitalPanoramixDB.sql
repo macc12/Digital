@@ -25,7 +25,9 @@ create table Producto(
   Primary key(IdProducto),
   Precio double not null,
   Estado VARCHAR(40) not null,
-  Cantidad int not null
+  Cantidad int not null,
+  IdConsultorio Int not null,
+  FOREIGN key (IdConsultorio) REFERENCES Consultorio (IdConsultorio)
 );
 
 create table Cliente(
