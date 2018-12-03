@@ -48,9 +48,9 @@
                 <nav class="main_nav justify-self-end text-right">
                     <ul>
                         <li><a href="Index.jsp">Inicio</a></li>
-                        <li ><a href="Trabajador.jsp">Trabajadores</a></li>
-                        <li ><a href="Cliente.jsp">Clientes</a></li>
-                        <li><a href="Proveedor.jsp">Proveedores</a></li>
+                        <li><a href="TrabajadorServlet?init">Trabajadores</a></li>
+                        <li><a href="ClienteServlet?init">Clientes</a></li>
+                        <li><a href="ProveedorServlet?init">Proveedores</a></li>
                         <li class="active"><a href="Producto.jsp">Productos</a></li>
                         <li><a href="ContUsuarios.jsp">Usuarios</a></li>
                         <li><a href="Consultorios.jsp">Consultorios</a></li>

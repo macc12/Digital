@@ -1,3 +1,4 @@
+<%@page import="VO.Consultorio"%>
 <%@page import="VO.Trabajador"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="VO.Usuario"%>
@@ -43,9 +44,9 @@
                 <nav class="main_nav justify-self-end text-right">
                     <ul>
                         <li><a href="Index.jsp">Inicio</a></li>
-                        <li class="active"><a href="Trabajador.jsp">Trabajadores</a></li>
-                        <li ><a href="Cliente.jsp">Clientes</a></li>
-                        <li><a href="Proveedor.jsp">Proveedores</a></li>
+                        <li class="active"><a href="TrabajadorServlet?init">Trabajadores</a></li>
+                        <li ><a href="ClienteServlet?init">Clientes</a></li>
+                        <li><a href="ProveedorServlet?init">Proveedores</a></li>
                         <li><a href="Producto.jsp">Productos</a></li>
                         <li><a href="ContUsuarios.jsp">Usuarios</a></li>
                         <li><a href="Consultorios.jsp">Consultorios</a></li>
@@ -153,17 +154,18 @@
                         %>
                         <form action="TrabajadorServlet?editar" method="POST">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="id" placeholder="id" value="<%=trabajador.getId()%>">
+                                <t2>Id</t2><input type="text" class="form-control" id="uid" name="id" placeholder="id" value="<%=trabajador.getId()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre" value="<%=trabajador.getNombre()%>">
+                                <t2>Nombre</t2><input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre" value="<%=trabajador.getNombre()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="apellido" placeholder="Apellido" value="<%=trabajador.getApellido()%>">
+                                <t2>Apellido</t2><input type="text" class="form-control" id="pwd" name="apellido" placeholder="Apellido" value="<%=trabajador.getApellido()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="salario" placeholder="salario" value="<%=trabajador.getSueldo()%>">
+                                <t2>Salario</t2><input type="text" class="form-control" id="pwd" name="salario" placeholder="salario" value="<%=trabajador.getSueldo()%>">
                             </div>
+                            <t2>Cargo</t2>
                             <select name="cargo">
                                 <option value="secretaria">Secretaria</option>
                                 <option value="odontologo">Odontologo</option>
@@ -176,13 +178,13 @@
                             </select>
                             <br>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="DiasTrabajados" placeholder=DiasTrabajados value="<%=trabajador.getDiasTraba()%>">
+                                <t2>Dias Trabajados</t2><input type="text" class="form-control" id="pwd" name="DiasTrabajados" placeholder=DiasTrabajados value="<%=trabajador.getDiasTraba()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="Deuda" placeholder="Deuda" value="<%=trabajador.getDeuda()%>">
+                                <t2>Deuda</t2><input type="text" class="form-control" id="pwd" name="Deuda" placeholder="Deuda" value="<%=trabajador.getDeuda()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="Pagado" placeholder="Pagado" value="<%=trabajador.getPagado()%>">
+                                <t2>Pagado</t2><input type="text" class="form-control" id="pwd" name="Pagado" placeholder="Pagado" value="<%=trabajador.getPagado()%>">
                             </div>
                             <button type="submit" name="modificar" class="btn btn-default">Modificar</button>
                         </form>
@@ -190,17 +192,18 @@
                         %>  
                         <form action="TrabajadorServlet" method="POST">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="id" placeholder="id">
+                                <t2>Id</t2><input type="text" class="form-control" id="uid" name="id" placeholder="id">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre">
+                                <t2>Nombre</t2><input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="apellido" placeholder="Apellido">
+                                <t2>Apellido</t2><input type="text" class="form-control" id="pwd" name="apellido" placeholder="Apellido">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="salario" placeholder="salario">
+                                <t2>Salario</t2><input type="text" class="form-control" id="pwd" name="salario" placeholder="salario">
                             </div>
+                            <t2>Cargo</t2>
                             <select name="cargo">
                                 <option value="secretaria">Secretaria</option>
                                 <option value="odontologo">Odontologo</option>
@@ -213,14 +216,29 @@
                             </select>
                             <br>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="DiasTrabajados" placeholder=DiasTrabajados">
+                                <t2>Dias Trabajados</t2><input type="text" class="form-control" id="pwd" name="DiasTrabajados" placeholder=DiasTrabajados">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="Deuda" placeholder="Deuda">
+                                <t2>Deuda</t2><input type="text" class="form-control" id="pwd" name="Deuda" placeholder="Deuda">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="Pagado" placeholder="Pagado">
+                                <t2>Pagado</t2><input type="text" class="form-control" id="pwd" name="Pagado" placeholder="Pagado">
                             </div>
+                            <t2>Consultorio</t2>
+                            <select name="consultorio">
+                                <%
+                                    if (request.getAttribute("consultorios") != null) {
+                                        ArrayList<Consultorio> consultorios = (ArrayList<Consultorio>) request.getAttribute("consultorios");
+                                        for (int i = 0; i < consultorios.size(); i++) {
+                                            Consultorio aux = consultorios.get(i);
+                                %>
+                                <option values="<%= aux.getNombre()%>"><%= aux.getNombre()%></option>
+                                <%
+                                        }
+                                    }
+                                %>
+                            </select>
+                            <br>
                             <button type="submit" name="enviar" class="btn btn-default">Enviar</button>
                         </form>
                         <%

@@ -33,7 +33,9 @@ create table Cliente(
   ApellidoCliente VARCHAR(20) not null,
   IdCliente int not null,
   Primary key(IdCliente),
-  HistoriaClinica VARCHAR(100) not null  
+  HistoriaClinica VARCHAR(100) not null,
+  IdConsultorio Int not null,
+  FOREIGN key (IdConsultorio) REFERENCES Consultorio (IdConsultorio)  
 );
 
 create table Trabajador(
@@ -45,7 +47,9 @@ create table Trabajador(
   Sueldo double not null,
   DiasTrabajados int not null,
   Deuda double not null,
-  Pagado double not null
+  Pagado double not null,
+  IdConsultorio Int not null,
+  FOREIGN key (IdConsultorio) REFERENCES Consultorio (IdConsultorio) 
 );
 
 create table usuario(

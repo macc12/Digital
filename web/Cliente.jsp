@@ -3,15 +3,16 @@
     Created on : 10/09/2018, 05:46:01 PM
     Author     : ACER
 --%>
+<%@page import="VO.Consultorio"%>
 <%@page import="VO.Cliente"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="VO.Usuario"%>
 <%
     HttpSession sesion = request.getSession();
-    Usuario usuario = (Usuario)sesion.getAttribute("usuario");
-    if( usuario == null){
-      response.sendRedirect("LogIn.jsp");
-    }else{ 
+    Usuario usuario = (Usuario) sesion.getAttribute("usuario");
+    if (usuario == null) {
+        response.sendRedirect("LogIn.jsp");
+    } else {
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,9 +49,9 @@
                 <nav class="main_nav justify-self-end text-right">
                     <ul>
                         <li><a href="Index.jsp">Inicio</a></li>
-                        <li><a href="Trabajador.jsp">Trabajadores</a></li>
-                        <li class="active"><a href="Cliente.jsp">Clientes</a></li>
-                        <li><a href="Proveedor.jsp">Proveedores</a></li>
+                        <li><a href="TrabajadorServlet?init">Trabajadores</a></li>
+                        <li class="active"><a href="ClienteServlet?init">Clientes</a></li>
+                        <li><a href="ProveedorServlet?init">Proveedores</a></li>
                         <li><a href="Producto.jsp">Productos</a></li>
                         <li><a href="ContUsuarios.jsp">Usuarios</a></li>
                         <li><a href="Consultorios.jsp">Consultorios</a></li>
@@ -158,16 +159,16 @@
                         %>
                         <form action="ClienteServlet?editar" method="POST">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="cedula" placeholder="cedula" value="<%=cliente.getId()%>">
+                                <t2>Cedula</t2><input type="text" class="form-control" id="uid" name="cedula" placeholder="cedula" value="<%=cliente.getId()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre" value="<%=cliente.getNombre()%>">
+                                <t2>Nombre</t2><input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre" value="<%=cliente.getNombre()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="apellido" placeholder="Apellido" value="<%=cliente.getApellido()%>">
+                               <t2>Apellido</t2> <input type="text" class="form-control" id="pwd" name="apellido" placeholder="Apellido" value="<%=cliente.getApellido()%>">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="historiaclinica" placeholder="historiaclinica" value="<%=cliente.getHistoriaClinica()%>">
+                                <t2>Historia Clinica</t2><input type="text" class="form-control" id="pwd" name="historiaclinica" placeholder="historiaclinica" value="<%=cliente.getHistoriaClinica()%>">
                             </div>
 
                             <br>
@@ -178,17 +179,31 @@
                         %>  
                         <form action="ClienteServlet" method="POST">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="cedula" placeholder="cedula" >
+                                <t2>Cedula</t2><input type="text" class="form-control" id="uid" name="cedula" placeholder="cedula" >
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre" >
+                                <t2>Nombre</t2><input type="text" class="form-control" id="uid" name="nombre" placeholder="Nombre" >
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="apellido" placeholder="Apellido">
+                                <t2>Apellido</t2><input type="text" class="form-control" id="pwd" name="apellido" placeholder="Apellido">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pwd" name="historiaclinica" placeholder="historiaclinica">
+                                <t2>Historia Clinica</t2><input type="text" class="form-control" id="pwd" name="historiaclinica" placeholder="historiaclinica">
                             </div>
+                            <t2>Consultorio</t2>
+                            <select name="consultorio">
+                                <%
+                                    if (request.getAttribute("consultorios") != null) {
+                                        ArrayList<Consultorio> consultorios = (ArrayList<Consultorio>) request.getAttribute("consultorios");
+                                        for (int i = 0; i < consultorios.size(); i++) {
+                                            Consultorio aux = consultorios.get(i);
+                                %>
+                                <option values="<%= aux.getNombre()%>"><%= aux.getNombre()%></option>
+                                <%
+                                        }
+                                    }
+                                %>
+                            </select>
                             <br><button type="submit" name="enviar" class="btn btn-default">Enviar</button>
                         </form>
                         <%

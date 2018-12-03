@@ -37,7 +37,7 @@ public class TrabajadorDAO implements IBaseDatos<Trabajador> {
             int diasTraba = 0;
             double deuda = 0;
             double pagado = 0;
-
+            int consul = 0;
             while (rs.next()) {
                 if (trabajadors == null) {
                     trabajadors = new ArrayList<>();
@@ -67,6 +67,9 @@ public class TrabajadorDAO implements IBaseDatos<Trabajador> {
 
                 pagado = rs.getDouble("Pagado");
                 aux.setPagado(pagado);
+                
+                consul = rs.getInt("IdConsultorio");
+                aux.setConsultorio(consul);
 
                 trabajadors.add(aux);
             }
@@ -83,7 +86,7 @@ public class TrabajadorDAO implements IBaseDatos<Trabajador> {
     public boolean crear(Trabajador t) throws SQLException {
         int result = 0;
         Connection connection = Conexion.getConnection();
-        String query = " insert into Trabajador" + " values (?,?,?,?,?,?,?,?)";
+        String query = " insert into Trabajador" + " values (?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStmt = null;
         try {
             preparedStmt = connection.prepareStatement(query);
@@ -95,6 +98,7 @@ public class TrabajadorDAO implements IBaseDatos<Trabajador> {
             preparedStmt.setInt(6, t.getDiasTraba());
             preparedStmt.setDouble(7, t.getDeuda());
             preparedStmt.setDouble(8, t.getPagado());
+            preparedStmt.setInt(9, t.getConsultorio());
 
             result = preparedStmt.executeUpdate();
         } catch (SQLException e) {
@@ -172,7 +176,8 @@ public class TrabajadorDAO implements IBaseDatos<Trabajador> {
             double sueldo = 0;
             int diasTraba = 0;
             double deuda = 0;
-            double pagado = 0;           
+            double pagado = 0;      
+            int consu = 0;
             if (rs.next()) {
                 temp = new Trabajador();
                 
@@ -199,6 +204,9 @@ public class TrabajadorDAO implements IBaseDatos<Trabajador> {
 
                 pagado = rs.getDouble("Pagado");
                 temp.setPagado(pagado);
+                
+                consu = rs.getInt("IdConsultorio");
+                temp.setConsultorio(consu);
                                                 
             }
             rs.close();

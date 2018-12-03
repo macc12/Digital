@@ -101,7 +101,7 @@ public class UsuarioServlet extends HttpServlet {
                                 //El usuario no a creado la sesion
                                 if (temp != null) {
                                     sesionUsuario.setAttribute("usuario", temp);
-                                    sesionUsuario.setMaxInactiveInterval(10);
+                                    sesionUsuario.setMaxInactiveInterval(20);
                                     response.sendRedirect("Index.jsp");                                    
                                 } else {
                                     response.sendRedirect("LogIn.jsp");

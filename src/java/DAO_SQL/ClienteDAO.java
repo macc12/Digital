@@ -32,6 +32,7 @@ public class ClienteDAO implements IBaseDatos<Cliente> {
             String nombre = null;
             String apellido = null;
             String HistoriaClinica = null;
+            int cons = 0;
             while (rs.next()) {
                 if (clientes == null) {
                     clientes = new ArrayList<>();
@@ -49,6 +50,9 @@ public class ClienteDAO implements IBaseDatos<Cliente> {
 
                 HistoriaClinica = rs.getString("HistoriaClinica");
                 aux.setHistoriaClinica(HistoriaClinica);
+                
+                cons = rs.getInt("IdConsultorio");
+                aux.setConsultorio(cons);
 
                 clientes.add(aux);
             }
@@ -64,7 +68,7 @@ public class ClienteDAO implements IBaseDatos<Cliente> {
     public boolean crear(Cliente t) throws SQLException {
         int result = 0;
         Connection connection = Conexion.getConnection();
-        String query = " insert into Cliente" + " values (?,?,?,?)";
+        String query = " insert into Cliente" + " values (?,?,?,?,?)";
         PreparedStatement preparedStmt = null;
         try {
             preparedStmt = connection.prepareStatement(query);
@@ -72,7 +76,7 @@ public class ClienteDAO implements IBaseDatos<Cliente> {
             preparedStmt.setString(2, t.getApellido());
             preparedStmt.setInt(3, t.getId());
             preparedStmt.setString(4, t.getHistoriaClinica());
-
+            preparedStmt.setInt(5, t.getConsultorio());
             result = preparedStmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -117,7 +121,8 @@ public class ClienteDAO implements IBaseDatos<Cliente> {
             int id = 0;
             String nombre = null;
             String apellido = null;
-            String HistoriaClinica = null;            
+            String HistoriaClinica = null;     
+            int cons = 0;
             if (rs.next()) {
                 temp = new Cliente();
                 
@@ -131,7 +136,10 @@ public class ClienteDAO implements IBaseDatos<Cliente> {
                 temp.setId(id);
 
                 HistoriaClinica = rs.getString("HistoriaClinica");
-                temp.setHistoriaClinica(HistoriaClinica);                                
+                temp.setHistoriaClinica(HistoriaClinica);       
+                
+                cons = rs.getInt("IdConsultorio");
+                temp.setConsultorio(cons);
             }
             rs.close();
         } catch (Exception e) {

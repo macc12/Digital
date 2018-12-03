@@ -5,7 +5,9 @@
  */
 package Controlador;
 
+import DAO_SQL.ConsultorioDAO;
 import DAO_SQL.TrabajadorDAO;
+import VO.Consultorio;
 import VO.Trabajador;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -53,6 +55,20 @@ public class TrabajadorServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+
+            if (request.getParameter("init") != null) {
+                ConsultorioDAO daoc = new ConsultorioDAO();
+                try {
+                    ArrayList<Consultorio> consultorios = (ArrayList<Consultorio>) daoc.listar();
+                    RequestDispatcher rq = request.getRequestDispatcher("Trabajador.jsp");
+                    request.setAttribute("consultorios", consultorios);
+                    rq.forward(request, response);
+                    response.sendRedirect("Trabajador.jsp");
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProveedorServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
             RequestDispatcher rq = request.getRequestDispatcher("Trabajador.jsp");
             if (request.getParameter("borrar") != null) {
 
@@ -92,6 +108,7 @@ public class TrabajadorServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getParameter("enviar") != null) {
+            ConsultorioDAO daoc = new ConsultorioDAO();
             String nombre = request.getParameter("nombre");
             String apellido = request.getParameter("apellido");
             int id = Integer.parseInt(request.getParameter("id"));
@@ -100,10 +117,19 @@ public class TrabajadorServlet extends HttpServlet {
             int diasTraba = Integer.parseInt(request.getParameter("DiasTrabajados"));
             double deuda = Double.parseDouble(request.getParameter("Deuda"));
             double pagado = Double.parseDouble(request.getParameter("Pagado"));
+            String consul = request.getParameter("consultorio");
+            Consultorio aux = null;
+            try {
+                aux = daoc.buscarc(consul);
+            } catch (SQLException ex) {
+                Logger.getLogger(ProveedorServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            int idco = aux.getId();
             if (nombre != null && apellido != null && nombre.length() > 0 && apellido.length() > 0 && id > 0 && sueldo > 0
                     && cargo.length() > 0 && diasTraba > 0) {
                 try {
                     Trabajador temp = new Trabajador(id, nombre, apellido, cargo, sueldo, diasTraba, deuda, pagado);
+                    temp.setConsultorio(idco);
                     if (!dao.crear(temp)) {
                         response.sendRedirect("Trabajador.jsp?error=ErrorDatos");
                     }
@@ -145,7 +171,7 @@ public class TrabajadorServlet extends HttpServlet {
                 response.sendRedirect("Trabajador.jsp?error=IngreseDatos");
             }
         }
-        response.sendRedirect("TrabajadorServlet");
+        //response.sendRedirect("TrabajadorServlet");
     }
 
     /**

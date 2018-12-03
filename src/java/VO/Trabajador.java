@@ -10,6 +10,7 @@ public class Trabajador {
     private int diasTraba;
     private double deuda;
     private double pagado;
+    private int consultorio;
 
     public Trabajador(String nombre, String apellido, String cargo, double sueldo, int id) {
         this.nombre = nombre;
@@ -97,4 +98,12 @@ public class Trabajador {
         this.pagado = pagado;
     }
 
+    public int getConsultorio() {
+        return consultorio;
+    }
+
+    public void setConsultorio(int consultorio) {
+        this.consultorio = consultorio;
+    }
+    
 }

@@ -3,6 +3,8 @@ package Controlador;
 import VO.Cliente;
 import DAO.DAOCliente;
 import DAO_SQL.ClienteDAO;
+import DAO_SQL.ConsultorioDAO;
+import VO.Consultorio;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -41,6 +43,19 @@ public class ClienteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            if (request.getParameter("init") != null) {
+                ConsultorioDAO daoc = new ConsultorioDAO();
+                try {
+                    ArrayList<Consultorio> consultorios = (ArrayList<Consultorio>) daoc.listar();
+                    RequestDispatcher rq = request.getRequestDispatcher("Cliente.jsp");
+                    request.setAttribute("consultorios", consultorios);
+                    rq.forward(request, response);
+                    response.sendRedirect("Cliente.jsp");
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProveedorServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
             RequestDispatcher rq = request.getRequestDispatcher("Cliente.jsp");
             if (request.getParameter("borrar") != null) {
 
@@ -79,53 +94,63 @@ public class ClienteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-            if (request.getParameter("enviar") != null) {
-                int id = Integer.parseInt(request.getParameter("cedula"));
-                String nombre = request.getParameter("nombre");
-                String apellido = request.getParameter("apellido");
-                String historiaclinica = request.getParameter("historiaclinica");
-                if (nombre != null && apellido != null && historiaclinica.length() > 0 && nombre.length() > 0 && apellido.length() > 0) {
-                    try {
-                        Cliente temp = new Cliente(nombre, apellido, id, historiaclinica);
-                        if (!dao.crear(temp)) {
-                            response.sendRedirect("Cliente.jsp?error=ErrorDatos");
-                        }
-                        ArrayList<Cliente> clientes = (ArrayList<Cliente>) this.dao.listar();
-                        RequestDispatcher rq = request.getRequestDispatcher("Cliente.jsp");
-                        request.setAttribute("lista", clientes);
-                        rq.forward(request, response);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else {
-                    response.sendRedirect("Cliente.jsp?error=IngreseDatos");
-                }
+
+        if (request.getParameter("enviar") != null) {
+            ConsultorioDAO daoc = new ConsultorioDAO();
+            int id = Integer.parseInt(request.getParameter("cedula"));
+            String nombre = request.getParameter("nombre");
+            String apellido = request.getParameter("apellido");
+            String historiaclinica = request.getParameter("historiaclinica");
+            String consul = request.getParameter("consultorio");
+            Consultorio aux = null;
+            try {
+                aux = daoc.buscarc(consul);
+            } catch (SQLException ex) {
+                Logger.getLogger(ProveedorServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if (request.getParameter("editar") != null) {
-                int id = Integer.parseInt(request.getParameter("cedula"));
-                String nombre = request.getParameter("nombre");
-                String apellido = request.getParameter("apellido");
-                String historiaclinica = request.getParameter("historiaclinica");
-                if (nombre != null && apellido != null && historiaclinica.length() > 0 && nombre.length() > 0 && apellido.length() > 0) {
-                    try {
-                        Cliente temp = new Cliente(nombre, apellido, id, historiaclinica);
-                        if (!dao.modificar(id, temp)) {
-                            response.sendRedirect("Cliente.jsp?error=ErrorDatos");
-                        }
-                        ArrayList<Cliente> clientes = (ArrayList<Cliente>) this.dao.listar();
-                        RequestDispatcher rq = request.getRequestDispatcher("Cliente.jsp");
-                        request.setAttribute("lista", clientes);
-                        rq.forward(request, response);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+            int idco = aux.getId();
+            if (nombre != null && apellido != null && historiaclinica.length() > 0 && nombre.length() > 0 && apellido.length() > 0) {
+                try {
+                    Cliente temp = new Cliente(nombre, apellido, id, historiaclinica);
+                    temp.setConsultorio(idco);
+                    if (!dao.crear(temp)) {
+                        response.sendRedirect("Cliente.jsp?error=ErrorDatos");
                     }
-                } else {
-                    response.sendRedirect("Cliente.jsp?error=IngreseDatos");
+                    ArrayList<Cliente> clientes = (ArrayList<Cliente>) this.dao.listar();
+                    RequestDispatcher rq = request.getRequestDispatcher("Cliente.jsp");
+                    request.setAttribute("lista", clientes);
+                    rq.forward(request, response);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            } else {
+                response.sendRedirect("Cliente.jsp?error=IngreseDatos");
             }
-            response.sendRedirect("ClienteServlet");
-        
+        }
+        if (request.getParameter("editar") != null) {
+            int id = Integer.parseInt(request.getParameter("cedula"));
+            String nombre = request.getParameter("nombre");
+            String apellido = request.getParameter("apellido");
+            String historiaclinica = request.getParameter("historiaclinica");
+            if (nombre != null && apellido != null && historiaclinica.length() > 0 && nombre.length() > 0 && apellido.length() > 0) {
+                try {
+                    Cliente temp = new Cliente(nombre, apellido, id, historiaclinica);
+                    if (!dao.modificar(id, temp)) {
+                        response.sendRedirect("Cliente.jsp?error=ErrorDatos");
+                    }
+                    ArrayList<Cliente> clientes = (ArrayList<Cliente>) this.dao.listar();
+                    RequestDispatcher rq = request.getRequestDispatcher("Cliente.jsp");
+                    request.setAttribute("lista", clientes);
+                    rq.forward(request, response);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                response.sendRedirect("Cliente.jsp?error=IngreseDatos");
+            }
+        }
+        response.sendRedirect("ClienteServlet");
+
     }
 
     /**
