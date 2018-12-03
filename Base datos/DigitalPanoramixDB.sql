@@ -79,3 +79,17 @@ create table quejas(
 	texto            varchar(100)
 );
 
+create table Factura(
+	IdFactura  Int not null primary key,
+	IdCliente int not null,
+	IdProducto int not null,
+	cantidad int not null,
+	hora varchar(20) not null,
+	Dia  int not null,
+	mes int not null,
+	año int not null,
+	INDEX (IdCliente),
+	INDEX (IdProducto),
+   FOREIGN KEY (IdCliente) REFERENCES 	Cliente (IdCliente),
+   FOREIGN KEY (IdProducto) REFERENCES producto (IdProducto)
+);
