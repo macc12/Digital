@@ -1,8 +1,4 @@
-<%-- 
-    Document   : Citas
-    Created on : 28/10/2018, 11:53:28 PM
-    Author     : jhanu
---%>
+
 
 <%@page import="VO.Citas"%>
 <%@page import="java.util.ArrayList"%>

@@ -5,10 +5,7 @@
  */
 package VO;
 
-/**
- *
- * @author Marco
- */
+
 public class Usuario {
 
     private String user;

@@ -1,8 +1,3 @@
-<%-- 
-    Document   : Productojsp
-    Created on : 10/09/2018, 05:46:01 PM
-    Author     : ACER
---%>
 <%@page import="VO.Consultorio"%>
 <%@page import="VO.Producto"%>
 <%@page import="java.util.ArrayList"%>

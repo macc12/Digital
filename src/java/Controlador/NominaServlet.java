@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import DAO.DAONomina;
+
 import DAO_SQL.TrabajadorDAO;
 import VO.Trabajador;
 import java.io.IOException;
@@ -20,10 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Marco
- */
+
 public class NominaServlet extends HttpServlet {
 
     /**

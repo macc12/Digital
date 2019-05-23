@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import DAO.DAOProvedor;
+
 import DAO_SQL.ConsultorioDAO;
 import DAO_SQL.ProveedorDAO;
 import VO.Consultorio;
@@ -23,10 +23,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author ACER
- */
+
 public class ProveedorServlet extends HttpServlet {
 
     //DAOProvedor dao;

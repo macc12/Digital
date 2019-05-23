@@ -16,10 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Marco
- */
+
 public class UsuarioDAO implements IBaseDatos<Usuario> {
 
     public Usuario buscarU(Usuario user) throws SQLException {

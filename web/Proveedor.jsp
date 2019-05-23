@@ -1,8 +1,3 @@
-<%-- 
-    Document   : Provedorjsp
-    Created on : 10/09/2018, 05:46:01 PM
-    Author     : ACER
---%>
 <%@page import="Controlador.ProveedorServlet"%>
 <%@page import="VO.Consultorio"%>
 <%@page import="VO.Proveedor"%>

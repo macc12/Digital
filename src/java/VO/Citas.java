@@ -5,10 +5,7 @@
  */
 package VO;
 
-/**
- *
- * @author jhanu
- */
+
 public class Citas {
     private String IdCita;
     private int IdCliente ;

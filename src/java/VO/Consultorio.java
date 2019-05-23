@@ -5,10 +5,7 @@
  */
 package VO;
 
-/**
- *
- * @author Marco
- */
+
 public class Consultorio {
     private String nombre;
     private int id;

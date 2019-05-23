@@ -1,9 +1,3 @@
-<%-- 
-    Document   : IAuxCont
-    Created on : 28-oct-2018, 16:53:25
-    Author     : Marco
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

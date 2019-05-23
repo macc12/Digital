@@ -6,7 +6,7 @@
 package Controlador;
 
 
-import DAO.DAOProducto;
+
 import DAO_SQL.ConsultorioDAO;
 import DAO_SQL.ProductoDAO;
 import VO.Consultorio;
@@ -22,10 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author ACER
- */
+
 public class ProductoServlet extends HttpServlet {
 
    

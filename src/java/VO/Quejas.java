@@ -5,10 +5,7 @@
  */
 package VO;
 
-/**
- *
- * @author Marco
- */
+
 public class Quejas {
     private String correo;
     private String texto;

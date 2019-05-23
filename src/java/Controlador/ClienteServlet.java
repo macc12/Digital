@@ -1,7 +1,6 @@
 package Controlador;
 
 import VO.Cliente;
-import DAO.DAOCliente;
 import DAO_SQL.ClienteDAO;
 import DAO_SQL.ConsultorioDAO;
 import VO.Consultorio;
@@ -16,10 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author ACER
- */
+
 public class ClienteServlet extends HttpServlet {
 
     //DAOCliente dao;
